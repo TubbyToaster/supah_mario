@@ -9,7 +9,7 @@ class Mario(Sprite):
         super(Mario, self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
-        self.image = pygame.image.load('assets/ship.bmp')
+        self.image = pygame.image.load('assets/block.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         self.rect.centerx = self.screen_rect.centerx
@@ -21,7 +21,7 @@ class Mario(Sprite):
         self.image_cap = 10
         self.image_ = pygame.image.load('assets/ship.bmp')
         self.spd = 5
-        self.vx = 0
+        # self.vx = 0
         self.vy = 0
         self.pos = 200
         self.jumping = False
@@ -29,14 +29,22 @@ class Mario(Sprite):
         self.change_x = 0
         self.change_y = 0
         self.blocks = blocks
-        self.fric = 0
+        self.cap = 8
         self.jump_scaler = 0
         self.land = True
         self.inair = False
+        self.state = "idle"
+        self.fric = 0
+
+    def go_left(self):
+        self.change_x -= self.fric
+
+    def go_right(self):
+        self.change_x += self.fric
 
     def update(self):
-        if self.jumping:
-            self.change_y = -16
+        if self.jumping and self.change_y == 0:
+            self.change_y = -12
             self.jumping = False
         if self.jumping_press and self.jump_scaler == 0:
             if self.jump_scaler < 12:
@@ -47,42 +55,40 @@ class Mario(Sprite):
         else:
             self.jump_scaler = 0
 
+        ff = 1
+        if self.moving_right and self.fric < 8:
+            self.fric += ff
+        elif self.fric > 0:
+            self.fric -= ff
+        if self.moving_left and self.fric > -8:
+            self.fric -= ff
+        elif self.fric < 0:
+            self.fric += ff
+
+        self.change_x = self.fric
         self.calc_grav()
+        self.rect.x += self.change_x
+
+        for block in self.blocks:
+            if self.rect.colliderect(block.rect):
+                if self.change_x > 0 and self.rect.bottom != block.rect.top:
+                    self.rect.right = block.rect.left
+                elif self.change_x < 0 and self.rect.bottom != block.rect.top:
+                    self.rect.left = block.rect.right
         self.rect.y += self.change_y
-        # self.rect.x += self.change_x
-
-        block_list = pygame.sprite.spritecollide(self, self.blocks, False)
-        for block in block_list:
-            if self.change_y > 0:
-                self.rect.bottom = block.rect.top
-            elif self.change_y < 0:
-                self.rect.top = block.rect.bottom
-            if self.moving_left:
-                self.rect.right = block.rect.left
-            elif self.moving_right:
-                self.rect.left = block.rect.right
-            self.change_y = 0
-
-        if self.moving_right and self.rect.right < self.screen_rect.right and self.fric < 8:
-            self.fric += .75
-        elif not self.moving_right and self.fric > 0:
-            self.fric -= .75
-
-        if self.moving_left and self.rect.left > 0 and self.fric > -8:
-            self.fric -= .75
-        elif not self.moving_right and self.fric < 0:
-            self.fric += .75
-
-        if self.fric != 0:
-            self.center += self.fric
-
-        self.rect.centerx = self.center
+        for block in self.blocks:
+            if self.rect.colliderect(block.rect):
+                if self.change_y > 0:
+                    self.rect.bottom = block.rect.top
+                elif self.change_y < 0:
+                    self.rect.top = block.rect.bottom
+                self.change_y = 0
 
     def calc_grav(self):
         if self.change_y == 0:
-            self.change_y = 1.5
+            self.change_y = 1
         else:
-            self.change_y += 1.5
+            self.change_y += 1
         if self.rect.y >= 600 - self.rect.height and self.change_y >= 0:
             self.change_y = 0
             self.rect.y = 600 - self.rect.height
@@ -101,3 +107,4 @@ class Mario(Sprite):
     def update_frame(self):
         if self.image_index == 0:
             self.image_index = self.image_
+
