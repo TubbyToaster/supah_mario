@@ -37,11 +37,11 @@ class Chunk():
             "-------------------------"]
 
     def gen(self):
-        x = y = 0  # coordinates
-        for row in self.map:  # whole row
-            for col in row:  # each symbol
+        x = y = 0 
+        for row in self.map: 
+            for col in row:  
                 if col == "-":
                     create_blocks(self.ai_settings, self.screen, self.blocks, x, y, 400)
-                x += 32  # positioning blocks width
-            y += 32  # same for height
-            x = 0  # on each row, start from 0
+                x += 32  
+            y += 32  
+            x = 0  
