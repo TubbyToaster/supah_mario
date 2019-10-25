@@ -1,4 +1,4 @@
-import sys
+   import sys
 import pygame
 from blocks import Blocks
 import random
@@ -27,12 +27,20 @@ def check_keydown_events(event, mario):
         mario.jumping_press = True
 
 
-def create_blocks(ai_settings, screen, blocks, ry, rx, xx):
-    block = Blocks(ai_settings, screen)
+def create_g_blocks(ai_settings, screen, image, g_blocks, rx, ry, xx):
+    block = Blocks(ai_settings, screen, image, rx, ry)
     block.rect.y = ry
     block.rect.x = rx
     block.x = xx
-    blocks.add(block)
+    g_blocks.add(block)
+
+
+def create_bg_blocks(ai_settings, screen, image, bg_blocks, rx, ry, xx):
+    block = Blocks(ai_settings, screen, image, rx, ry)
+    block.rect.y = ry
+    block.rect.x = rx
+    block.x = xx
+    bg_blocks.add(block)
 
 
 def check_events(ai_settings, screen, mario):
@@ -47,14 +55,21 @@ def check_events(ai_settings, screen, mario):
             mouse_x, mouse_y = pygame.mouse.get_pos()
 
 
-def update_screen(ai_settings, screen, mario, blocks):
+def update_screen(ai_settings, screen, mario, g_blocks, bg_blocks):
     screen.fill(ai_settings.bg_color)
-    mario.blitme()
 
-    for el in blocks:
+    for el in g_blocks:
         el.blitme()
         el.update_frame()
         if el.image_index > 3:
-            blocks.remove(el)
+            g_blocks.remove(el)
+
+    for el in bg_blocks:
+        el.blitme()
+        el.update_frame()
+        if el.image_index > 3:
+            g_blocks.remove(el)
+
+    mario.blitme()
 
     pygame.display.flip()
