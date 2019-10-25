@@ -61,19 +61,19 @@ class Chunk():
                                          self.bg_blocks, x, y, 400)
                     elif col == "c":
                         create_bg_blocks(self.ai_settings, self.screen,
-                                         "assets/bg_tiles/Lcloud.bmp",
+                                         "assets/bg_tiles/cloud_1_1.bmp",
                                          self.bg_blocks, x, y, 400)
                     elif col == "d":
                         create_bg_blocks(self.ai_settings, self.screen,
-                                         "assets/bg_tiles/Mcloud_up.bmp",
+                                         "assets/bg_tiles/cloud_1_2.bmp",
                                          self.bg_blocks, x, y, 400)
                     elif col == "e":
                         create_bg_blocks(self.ai_settings, self.screen,
-                                         "assets/bg_tiles/Mcloud_down.bmp",
+                                         "assets/bg_tiles/cloud_1_3.bmp",
                                          self.bg_blocks, x, y, 400)
                     elif col == "f":
                         create_bg_blocks(self.ai_settings, self.screen,
-                                         "assets/bg_tiles/Rcloud.bmp",
+                                         "assets/bg_tiles/cloud_1_4.bmp",
                                          self.bg_blocks, x, y, 400)
                     elif col == "g":
                         create_bg_blocks(self.ai_settings, self.screen,
@@ -121,10 +121,10 @@ class Chunk():
 #bg 1-1
 a = black
 b = sky
-c = Lcloud
-d = Mcloud_up
-e = Mcloud_down
-f = Rcloud
+c = cloud_1_1
+d = cloud_1_2
+e = cloud_1_3
+f = cloud_1_4
 g = hill_slope_left
 h = hill_top
 i = hill_slope_right
