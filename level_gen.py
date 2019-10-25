@@ -49,6 +49,22 @@ class Chunk():
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/ground_tiles/brick_1.bmp",
                                         self.g_blocks, x, y, 400)
+                    if col == "2":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_1.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "3":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_2.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "4":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_3.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "5":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_4.bmp",
+                                        self.g_blocks, x, y, 400)
                     x += 48
                 y += 48
                 x = left
@@ -107,6 +123,34 @@ class Chunk():
                         create_bg_blocks(self.ai_settings, self.screen,
                                          "assets/bg_tiles/Mbush.bmp",
                                          self.bg_blocks, x, y, 400)
+                    elif col == "o":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/Rbush.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "p":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/cloud_2_1.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "q":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/cloud_2_2.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "r":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/cloud_2_3.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "s":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/cloud_2_4.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "t":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/cloud_2_5.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "u":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/cloud_2_6.bmp",
+                                         self.bg_blocks, x, y, 400)
                     x += 48
                 y += 48
                 x = left
@@ -115,8 +159,61 @@ class Chunk():
 #ground 1-1
 """0 = none
 1 = brick_1
+2 = pipe_1
+3 = pipe_2
+4 = pipe_3
+5 = pipe_4
 
+g1_1_1
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"111111111111111",
+"111111111111111" 
 
+g1_1_2
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000023",
+"000000000000054",
+"111111111111111",
+"111111111111111"
+
+g1_1_3
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000002300000",
+"000000005400000",
+"000000005400000",
+"111111111111111",
+"111111111111111"
 
 #bg 1-1
 a = black
@@ -134,19 +231,60 @@ l = hill_spot_left
 m = Lbush
 n = Mbush
 o = Rbush
+p = cloud_2_1
+q = cloud_2_2
+r = cloud_2_3
+s = cloud_2_4
+t = cloud_2_5
+u = cloud_2_6"""
 
-[ 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
-  1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
-  1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
-  1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 3 , 1 , 1 , 1 , 1 , 1 ,
-  1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 2 , 4 , 5 , 1 , 1 , 1 , 1 ,
-  1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
-  1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
-  1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
-  1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
-  1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
-  1 , 1 , 7 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
-  1 , 6 , 10, 8 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
-  6 , 10, 9 , 11, 8 , 1 , 1 , 1 , 1 , 1 , 1 , 12, 13, 13, 13,
-  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ] """
+1_1_1
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbdbbbbb",
+"bbbbbbbbcefbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbhbbbbbbbbbbbb",
+"bgkibbbbbbbbbbb",
+"gkjlibbbbbbmnnn",
+"aaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaa"
+
+1_1_2
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbpqrbbbbbbbb",
+"bbbbstubbbbbpqq",
+"bbbbbbbbbbbbstt",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbhbbbbbbbbbbbb",
+"bbbbbbbbbbbmnno",
+"aaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaa"
+
+1_1_3
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbpqqrbbbbb",
+"qrbbbbsttubbbbb",
+"tubbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbmnobbbb",
+"aaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaa"
