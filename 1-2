@@ -1,0 +1,85 @@
+ground 1-2
+0 = none
+1 = brick_1
+2 = pipe_1
+3 = pipe_2
+4 = pipe_3
+5 = pipe_4
+6 = stair_1
+7 = brick_3
+8 = brick_4
+9 = pipe_15
+a = pipe_16
+b = pipe_17
+c = pipe_18
+d = pipe_19
+e = pipe_20
+f = pipe_13
+g = pipe_14
+h = pipe_5
+i = pipe_6
+j = pipe_7
+k = pipe_8
+l = pipe_9
+m = pipe_10
+
+g1_2_1
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000230",
+"000000000000540",
+"0000000000ijm40",
+"0000000000hkl40",
+"111111111111111",
+"111111111111111"
+
+#bg 1-2
+a = black
+b = sky
+g = hill_slope_left
+h = hill_top
+i = hill_slope_right
+j = hill
+k = hill_spot_right
+l = hill_spot_left
+m = Lbush
+n = Mbush
+o = Rbush
+p = cloud_2_1
+q = cloud_2_2
+r = cloud_2_3
+s = cloud_2_4
+t = cloud_2_5
+u = cloud_2_6
+v = castle_1
+w = castle_2
+x = castle_3
+y = castle_4
+z = castle_5
+1 = castle_6
+2 = pole
+3 = pole_top
+
+bg1_2_1
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbpqqrbbbbbbbb",
+"bbbsttubbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbpqrbbb",
+"bvvvbbbbbstubbb",
+"byx1bbbbbbbbbbb",
+"vwwwvbbbbbbbbbb",
+"xxzxxbbbbbbbbbb",
+"xxaxxbbbbbbbbbb",
+"aaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaa"
