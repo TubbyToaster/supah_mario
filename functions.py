@@ -1,4 +1,4 @@
-   import sys
+import sys
 import pygame
 from blocks import Blocks
 import random
@@ -11,6 +11,10 @@ def check_keyup_events(event, mario):
         mario.moving_left = False
     if event.key == pygame.K_UP:
         mario.jumping_press = False
+    if event.key == pygame.K_d:
+        mario.screen_right = False
+    if event.key == pygame.K_a:
+        mario.screen_left = False
 
 
 def check_keydown_events(event, mario):
@@ -25,6 +29,12 @@ def check_keydown_events(event, mario):
         if not mario.inair:
             mario.inair = True
         mario.jumping_press = True
+
+    if event.key == pygame.K_d:
+        mario.screen_right = True
+
+    if event.key == pygame.K_a:
+        mario.screen_left = True
 
 
 def create_g_blocks(ai_settings, screen, image, g_blocks, rx, ry, xx):
@@ -58,13 +68,13 @@ def check_events(ai_settings, screen, mario):
 def update_screen(ai_settings, screen, mario, g_blocks, bg_blocks):
     screen.fill(ai_settings.bg_color)
 
-    for el in g_blocks:
+    for el in bg_blocks:
         el.blitme()
         el.update_frame()
         if el.image_index > 3:
-            g_blocks.remove(el)
+            bg_blocks.remove(el)
 
-    for el in bg_blocks:
+    for el in g_blocks:
         el.blitme()
         el.update_frame()
         if el.image_index > 3:
