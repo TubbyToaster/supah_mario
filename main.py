@@ -2,9 +2,13 @@ import pygame
 from pygame.sprite import Group
 from mario import Mario
 from settings import Settings
+from level_gen import Chunk
+from level_monitor import Monitor
+from enemy import Enemy
 from blocks import Blocks
 import functions as gf
 
+mainClock = pygame.time.Clock()
 
 def run_game():
     pygame.init()
@@ -12,18 +16,24 @@ def run_game():
     ai_settings = Settings()
     screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
 
-    blocks = Group()
-    mario = Mario(ai_settings, screen, blocks)
+    g_blocks = Group()
+    bg_blocks = Group()
+    enemies = Group()
+    chunks = Group()
+    monitor = Monitor(ai_settings, screen, g_blocks, bg_blocks, chunks)
+    mario = Mario(ai_settings, screen, g_blocks, bg_blocks, enemies, monitor, chunks)
+    # enemy = Enemy(ai_settings, screen, blocks, mario, "reg")
 
-    gf.create_blocks(ai_settings, screen, blocks, 500, 368+32, 400)
-    gf.create_blocks(ai_settings, screen, blocks, 500, 280, 400)
-    gf.create_blocks(ai_settings, screen, blocks, 500+32, 280, 400)
-    gf.create_blocks(ai_settings, screen, blocks, 500+64, 280, 400)
+    gf.create_enemy(ai_settings, screen, g_blocks, bg_blocks, mario, enemies, "reg", 500, 100, 500)
+
+
+
     while True:
-        gf.check_events(ai_settings, screen, mario)
+        gf.check_events(ai_settings, screen, mario, g_blocks, bg_blocks, monitor)
         mario.update()
 
-        gf.update_screen(ai_settings, screen, mario, blocks)
 
+        gf.update_screen(ai_settings, screen, mario, g_blocks, bg_blocks, enemies, monitor, chunks)
 
+        mainClock.tick(40)
 run_game()
