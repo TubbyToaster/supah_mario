@@ -36,13 +36,16 @@ class Mario(Sprite):
         self.state = "idle"
         self.fric = 0
 
+        self.screen_right = False
+        self.screen_left = False
+
     def go_left(self):
         self.change_x -= self.fric
 
     def go_right(self):
         self.change_x += self.fric
 
-    def update(self):
+    def update(self, g_blocks, bg_blocks):
         if self.jumping and self.change_y == 0:
             self.change_y = -12
             self.jumping = False
@@ -65,6 +68,20 @@ class Mario(Sprite):
         elif self.fric < 0:
             self.fric += ff
 
+        if self.screen_right:
+            for blocks in g_blocks:
+                blocks.x -= 30
+                blocks.rect.x -= 30
+            for blocks in bg_blocks:
+                blocks.x -= 30
+                blocks.rect.x -= 30
+        if self.screen_left:
+            for blocks in g_blocks:
+                blocks.x += 30
+                blocks.rect.x += 30
+            for blocks in bg_blocks:
+                blocks.x += 30
+                blocks.rect.x += 30
         self.change_x = self.fric
         self.calc_grav()
         self.rect.x += self.change_x
