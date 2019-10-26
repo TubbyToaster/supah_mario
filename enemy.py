@@ -5,7 +5,7 @@ from pygame.math import Vector2
 
 
 class Enemy(Sprite):
-    def __init__(self, ai_settings, screen, blocks, mario, type_, rcenter, bottom, center):
+    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, mario, type_, rcenter, bottom, center):
         super(Enemy, self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
@@ -28,7 +28,8 @@ class Enemy(Sprite):
         self.jumping_press = False
         self.change_x = 0
         self.change_y = 0
-        self.blocks = blocks
+        self.g_blocks = g_blocks
+        self.bg_blocks = bg_blocks
         self.cap = 8
         self.jump_scaler = 0
         self.land = True
@@ -76,7 +77,7 @@ class Enemy(Sprite):
         self.calc_grav()
         self.rect.x += self.change_x
 
-        for block in self.blocks:
+        for block in self.g_blocks:
             if self.rect.colliderect(block.rect):
                 if self.change_x > 0 and self.rect.bottom != block.rect.top: # right
                     self.rect.right = block.rect.left
@@ -87,7 +88,7 @@ class Enemy(Sprite):
                     self.mov_right = True
                     self.mov_left = False
         self.rect.y += self.change_y
-        for block in self.blocks:
+        for block in self.g_blocks:
             if self.rect.colliderect(block.rect):
                 if self.change_y > 0:
                     self.rect.bottom = block.rect.top
