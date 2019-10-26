@@ -87,7 +87,7 @@ class Items(Sprite):
                     self.mov_left = True
                     self.mov_right = False
                     if self.type == "mushroom":
-                        self.image_ == pygame.image.load('assets/assets/interactible/Rshroom.bmp')
+                        self.image_ == pygame.image.load('assets/interactible/Rshroom.bmp')
 
 
                 elif self.change_x < 0 and self.rect.bottom != block.rect.top:  # left
@@ -114,15 +114,15 @@ class Items(Sprite):
 
     def blitme(self):
         if self.type == "star":
-            self.image_ = pygame.image.load('assets/assets/interactible/star_1.bmp')
+            self.image_ = pygame.image.load('assets/interactible/star_1.bmp')
         elif self.type == "coin":
-            self.image_ = pygame.image.load('assets/assets/interactible/coin_1_1.bmp')
+            self.image_ = pygame.image.load('assets/interactible/coin_1_1.bmp')
         elif self.type == "mushroom":
-            self.image_ = pygame.image.load('assets/assets/interactible/Lshroom.bmp')
+            self.image_ = pygame.image.load('assets/interactible/Lshroom.bmp')
         elif self.type == "fireflower":
-            self.image_ = pygame.image.load('assets/assets/interactible/ff_1_1.bmp')
+            self.image_ = pygame.image.load('assets/interactible/ff_1_1.bmp')
         elif self.type == "1upshroom":
-            self.image_ = pygame.image.load('assets/assets/interactible/L1up.bmp')
+            self.image_ = pygame.image.load('assets/interactible/L1up.bmp')
         self.screen.blit(self.image_, self.rect)
 
     def center_mario(self):
