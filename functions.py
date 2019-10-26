@@ -25,7 +25,10 @@ def check_keydown_events(event, mario):
         if not mario.inair:
             mario.inair = True
         mario.jumping_press = True
-
+        
+def create_enemy(ai_settings, screen, blocks, mario, enemies, type, rcenter, bottom, center,):
+    enemy = Enemy(ai_settings, screen, blocks, mario, type, rcenter, bottom, center)
+    enemies.add(enemy)
 
 def create_blocks(ai_settings, screen, blocks, ry, rx, xx):
     block = Blocks(ai_settings, screen)
