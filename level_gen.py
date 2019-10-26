@@ -65,6 +65,74 @@ class Chunk():
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/ground_tiles/pipe_4.bmp",
                                         self.g_blocks, x, y, 400)
+                    if col == "6":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/stair_1.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "7":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/brick_3.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "8":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/brick_4.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "9":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_15.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "a":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_16.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "b":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_17.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "c":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_18.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "d":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_19.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "e":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_20.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "f":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_13.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "g":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_14.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "h":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_5.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "i":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_6.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "j":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_7.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "k":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_8.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "l":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_9.bmp",
+                                        self.g_blocks, x, y, 400)
+                    if col == "m":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/pipe_10.bmp",
+                                        self.g_blocks, x, y, 400)
                     x += 48
                 y += 48
                 x = left
@@ -74,22 +142,6 @@ class Chunk():
                     if col == "b":
                         create_bg_blocks(self.ai_settings, self.screen,
                                          "assets/bg_tiles/sky.bmp",
-                                         self.bg_blocks, x, y, 400)
-                    elif col == "c":
-                        create_bg_blocks(self.ai_settings, self.screen,
-                                         "assets/bg_tiles/cloud_1_1.bmp",
-                                         self.bg_blocks, x, y, 400)
-                    elif col == "d":
-                        create_bg_blocks(self.ai_settings, self.screen,
-                                         "assets/bg_tiles/cloud_1_2.bmp",
-                                         self.bg_blocks, x, y, 400)
-                    elif col == "e":
-                        create_bg_blocks(self.ai_settings, self.screen,
-                                         "assets/bg_tiles/cloud_1_3.bmp",
-                                         self.bg_blocks, x, y, 400)
-                    elif col == "f":
-                        create_bg_blocks(self.ai_settings, self.screen,
-                                         "assets/bg_tiles/cloud_1_4.bmp",
                                          self.bg_blocks, x, y, 400)
                     elif col == "g":
                         create_bg_blocks(self.ai_settings, self.screen,
@@ -151,140 +203,40 @@ class Chunk():
                         create_bg_blocks(self.ai_settings, self.screen,
                                          "assets/bg_tiles/cloud_2_6.bmp",
                                          self.bg_blocks, x, y, 400)
+                    elif col == "v":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/castle_1.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "w":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/castle_2.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "x":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/castle_3.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "y":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/castle_4.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "z":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/castle_5.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "1":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/castle_6.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "2":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/pole.bmp",
+                                         self.bg_blocks, x, y, 400)
+                    elif col == "3":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/bg_tiles/pole_top.bmp",
+                                         self.bg_blocks, x, y, 400)
                     x += 48
                 y += 48
                 x = left
 
 
-#ground 1-1
-"""0 = none
-1 = brick_1
-2 = pipe_1
-3 = pipe_2
-4 = pipe_3
-5 = pipe_4
-
-g1_1_1
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"111111111111111",
-"111111111111111" 
-
-g1_1_2
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000023",
-"000000000000054",
-"111111111111111",
-"111111111111111"
-
-g1_1_3
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000000000000",
-"000000002300000",
-"000000005400000",
-"000000005400000",
-"111111111111111",
-"111111111111111"
-
-#bg 1-1
-a = black
-b = sky
-c = cloud_1_1
-d = cloud_1_2
-e = cloud_1_3
-f = cloud_1_4
-g = hill_slope_left
-h = hill_top
-i = hill_slope_right
-j = hill
-k = hill_spot_right
-l = hill_spot_left
-m = Lbush
-n = Mbush
-o = Rbush
-p = cloud_2_1
-q = cloud_2_2
-r = cloud_2_3
-s = cloud_2_4
-t = cloud_2_5
-u = cloud_2_6"""
-
-1_1_1
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbdbbbbb",
-"bbbbbbbbcefbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbhbbbbbbbbbbbb",
-"bgkibbbbbbbbbbb",
-"gkjlibbbbbbmnnn",
-"aaaaaaaaaaaaaaa",
-"aaaaaaaaaaaaaaa"
-
-1_1_2
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbpqrbbbbbbbb",
-"bbbbstubbbbbpqq",
-"bbbbbbbbbbbbstt",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbhbbbbbbbbbbbb",
-"bbbbbbbbbbbmnno",
-"aaaaaaaaaaaaaaa",
-"aaaaaaaaaaaaaaa"
-
-1_1_3
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbpqqrbbbbb",
-"qrbbbbsttubbbbb",
-"tubbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbbbbbbbb",
-"bbbbbbbbmnobbbb",
-"aaaaaaaaaaaaaaa",
-"aaaaaaaaaaaaaaa"
