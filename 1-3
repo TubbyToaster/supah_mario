@@ -1,0 +1,267 @@
+ground 1-3
+0 = none
+1 = brick_1
+2 = pipe_1
+3 = pipe_2
+4 = pipe_3
+5 = pipe_4
+6 = stair_1
+7 = brick_3
+8 = brick_4
+9 = pipe_15
+a = pipe_16
+b = pipe_17
+c = pipe_18
+d = pipe_19
+e = pipe_20
+f = pipe_13
+g = pipe_14
+h = pipe_5
+i = pipe_6
+j = pipe_7
+k = pipe_8
+l = pipe_9
+m = pipe_10
+n = stair_2
+o = pipe_11
+p = pipe_12
+q = tree_1
+r = tree_2
+s = tree_3
+t = brick_2
+u = qblock_1
+v = qblock_used_1
+w = flag_1_1
+x = flag_1_2
+
+g1_3_1
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"111111111111111",
+"111111111111111"
+
+g1_3_2
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"00000000000qrrr",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000qrrrrr",
+"000000000000000",
+"000000000000000",
+"000qrrs00000000",
+"100000000000000",
+"100000000000000"
+
+g1_3_3
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"0000000000qrrrr",
+"s00000000000000",
+"000000000000000",
+"000000000000000",
+"00000qrrrs00000",
+"rs0000000000000",
+"000000000000000",
+"000000000000000",
+"00qrs0000000000",
+"000000000000000",
+"000000000000000"
+
+g1_3_4
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"rs0000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"00000qrrs00000q",
+"000000000000000"
+
+g1_3_5
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"qrrs00000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"0000000000qrs00",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"rrrs0qrrrs00000",
+"000000000000000"
+
+g1_3_6
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"0qrrrrs00000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000",
+"000000000000000"
+
+#bg 1-3
+a = black
+b = sky
+g = hill_slope_left
+h = hill_top
+i = hill_slope_right
+j = hill
+k = hill_spot_right
+l = hill_spot_left
+m = Lbush
+n = Mbush
+o = Rbush
+p = cloud_2_1
+q = cloud_2_2
+r = cloud_2_3
+s = cloud_2_4
+t = cloud_2_5
+u = cloud_2_6
+v = castle_1
+w = castle_2
+x = castle_3
+y = castle_4
+z = castle_5
+1 = castle_6
+2 = pole
+3 = pole_top
+4 = tree_thick
+
+bg1_3_1
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbpqqrbbbbbbbb",
+"bbbsttubbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbpqrbbb",
+"bvvvbbbbbstubbb",
+"byx1bbbbbbbbbbb",
+"vwwwvbbbbbbbbbb",
+"xxzxxbbbbbbbbbb",
+"xxaxxbbbbbbbbbb",
+"aaaaaaaaaaaaaaa",
+"aaaaaaaaaaaaaaa"
+
+bg1_3_2
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbpqqrbbbbbbbb",
+"bbbsttubbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbb444",
+"bbbbbbbbbbbb444",
+"bbbbbbbbbbbb444",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbb44444",
+"bbbbbbbbbb44444",
+"bbbbbbbbbb44444",
+"abbb44bbbb44444",
+"abbb44bbbb44444"
+
+bg1_3_3
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbb4444",
+"bbbbbbbbpqr4444",
+"bbbbbpqrstu4444",
+"bbbbbbbbbbb4444",
+"bbbbbb444bb4444",
+"4bbbbb444bb4444",
+"4bbbbb444bb4444",
+"4bbbbb444bb4444",
+"4bb4bb444bb4444",
+"4bb4bb444bb4444"
+
+bg1_3_4
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbpqqrbbbbb",
+"bbbbbbsttubbbbb",
+"4bbbbbbbbbbbbbb",
+"4bbbbbbbbbbbbbb",
+"4bbbbbbbbbbbpqr",
+"4bbbbbbbbbbbstu",
+"4bbbbbbbbbbbbbb",
+"4bbbbbbbbbbbbbb",
+"4pqrbbbbbbbbbbb",
+"4stubbbbbbbbbbb",
+"4bbbbbbbbbbbbbb",
+"4bbbbb44bbbbbbb"
+
+bg1_3_5
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbpqqrbbbbb",
+"bbbbbbsttubbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"b44bbbbbbbbbbbb",
+"b44bbbbbbbbbbbb",
+"b44bbbbbbbbbbbb",
+"b44bbbbbbbbbbbb",
+"b44bbbbbbbb4bbb",
+"b44bbbbbbbb4bbb",
+"b44bbbbbbbb4bbb",
+"bbbbbbbbbbb4bbb",
+"444bbb444bb4bbb"
+
+bg1_3_6
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbbbbb",
+"bbbbbbbbbbbpqrb",
+"bb4444bbpqrstub",
+"bb4444bbstubbbb",
+"bb4444bbbbbbbbb",
+"bb4444bbbbbbbbb",
+"bp4444bbbbbbbbb",
+"bs4444bbbbbbbbb",
+"bb4444bbbbbbbbb",
+"bb4444bbbbbbbbb"
