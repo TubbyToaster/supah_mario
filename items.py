@@ -1,9 +1,10 @@
 import pygame
 from pygame.sprite import Sprite
+from timer import Timer
 
 
 class Items(Sprite):
-    def __init__(self, ai_settings, screen, blocks, mario, type_, rcenter, bottom, center):
+    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, mario, type_, rcenter, bottom, center):
         super(Items, self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
@@ -14,7 +15,8 @@ class Items(Sprite):
         self.rect.bottom = bottom
         self.center = center
         self.mario = mario
-        self.blocks = blocks
+        self.g_blocks = g_blocks
+        self.bg_blocks = bg_blocks
         self.type = type_
         self.mov_right = False
         self.mov_left = True
@@ -29,7 +31,8 @@ class Items(Sprite):
         self.jumping_press = False
         self.change_x = 0
         self.change_y = 0
-        self.blocks = blocks
+        self.g_blocks = g_blocks
+        self.bg_blocks = bg_blocks
         self.cap = 8
         self.jump_scaler = 0
         self.land = True
@@ -65,7 +68,7 @@ class Items(Sprite):
             else:
                 self.jump_scaler = 0
 
-        if self.type == "mushroom" and self.type == "star":
+        if self.type == "mushroom" or self.type == "star":
             ff = 1
             if self.mov_right and self.fric < 3:
                 self.fric += ff
@@ -80,7 +83,7 @@ class Items(Sprite):
         self.calc_grav()
         self.rect.x += self.change_x
 
-        for block in self.blocks:
+        for block in self.g_blocks:
             if self.rect.colliderect(block.rect):
                 if self.change_x > 0 and self.rect.bottom != block.rect.top:  # right
                     self.rect.right = block.rect.left
@@ -95,7 +98,7 @@ class Items(Sprite):
                     self.mov_right = True
                     self.mov_left = False
         self.rect.y += self.change_y
-        for block in self.blocks:
+        for block in self.g_blocks:
             if self.rect.colliderect(block.rect):
                 if self.change_y > 0:
                     self.rect.bottom = block.rect.top
