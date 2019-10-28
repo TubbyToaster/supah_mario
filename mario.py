@@ -107,10 +107,8 @@ class Mario(Sprite):
                             'assets/mario/Lmario_walk_3.bmp']
             self.timer.frames = self.frames_
             #self.timer.reset()
-            if not self.landed:
-                self.frames_ = ['assets/mario/Lmario_jump.bmp']
-                self.timer.frames = self.frames_
-                self.timer.reset()
+
+
         if self.mov_right:
             self.rect.x += self.change_x
             self.dir_face = "right"
@@ -118,8 +116,14 @@ class Mario(Sprite):
                             'assets/mario/Rmario_walk_3.bmp']
             self.timer.frames = self.frames_
             #self.timer.reset()
-            if not self.landed:
+
+        if self.inair:
+            if not self.landed and self.dir_face == "right":
                 self.frames_ = ['assets/mario/Rmario_jump.bmp']
+                self.timer.frames = self.frames_
+                self.timer.reset()
+            if not self.landed and self.dir_face == "left":
+                self.frames_ = ['assets/mario/Lmario_jump.bmp']
                 self.timer.frames = self.frames_
                 self.timer.reset()
 
