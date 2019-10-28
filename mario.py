@@ -100,7 +100,9 @@ class Mario(Sprite):
             self.timer.frames = self.frames_
             self.timer.reset()
 
-        if self.mov_left:
+
+
+        if self.mov_left and not self.mov_right:
             self.rect.x += self.change_x
             self.dir_face = "left"
             self.frames_ = ['assets/mario/Lmario_walk_1.bmp', 'assets/mario/Lmario_walk_2.bmp',
@@ -109,7 +111,7 @@ class Mario(Sprite):
             #self.timer.reset()
 
 
-        if self.mov_right:
+        if self.mov_right and not self.mov_left:
             self.rect.x += self.change_x
             self.dir_face = "right"
             self.frames_ = ['assets/mario/Rmario_walk_1.bmp', 'assets/mario/Rmario_walk_2.bmp',
@@ -128,9 +130,9 @@ class Mario(Sprite):
                 self.timer.reset()
 
         # self.change_x = self.fric
-        if self.rect.centerx < round(self.ai_settings.screen_width / 2) and self.mov_right:
+        if self.rect.centerx < round(self.ai_settings.screen_width / 2) and self.mov_right and not self.mov_left:
             self.go_right()
-        elif self.rect.centerx > round(self.ai_settings.screen_width / 2) and self.mov_right:
+        elif self.rect.centerx > round(self.ai_settings.screen_width / 2) and self.mov_right and not self.mov_left:
             for blocks in self.g_blocks:
                 # blocks.x -= self.change_x
                 blocks.rect.x -= self.change_x
@@ -143,16 +145,17 @@ class Mario(Sprite):
                 chunk.check_edge -= self.change_x
             self.rect.x -= self.change_x
 
+        for block in self.g_blocks:
+            if self.rect.colliderect(block.rect) and self.death == False:
+                if self.change_x > 0: # and self.rect.bottom != block.rect.top:
+                    self.rect.right = block.rect.left
+                elif self.change_x < 0: # and self.rect.bottom != block.rect.top:
+                    self.rect.left = block.rect.right
 
         self.change_x = self.fric
         self.calc_grav()
 
-        for block in self.g_blocks:
-            if self.rect.colliderect(block.rect) and self.death == False:
-                if self.change_x > 0 and self.rect.bottom != block.rect.top:
-                    self.rect.right = block.rect.left
-                elif self.change_x < 0 and self.rect.bottom != block.rect.top:
-                    self.rect.left = block.rect.right
+
         self.rect.y += self.change_y
         for block in self.g_blocks:
             if self.rect.colliderect(block.rect) and self.death == False:
@@ -201,3 +204,4 @@ class Mario(Sprite):
     def update_frame(self):
         if self.image_index == 0:
             self.image_index = self.image_
+
