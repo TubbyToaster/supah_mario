@@ -101,6 +101,7 @@ class Mario(Sprite):
             self.timer.reset()
 
         if self.mov_left:
+            self.rect.x += self.change_x
             self.dir_face = "left"
             self.frames_ = ['assets/mario/Lmario_walk_1.bmp', 'assets/mario/Lmario_walk_2.bmp',
                             'assets/mario/Lmario_walk_3.bmp']
@@ -111,6 +112,7 @@ class Mario(Sprite):
                 self.timer.frames = self.frames_
                 self.timer.reset()
         if self.mov_right:
+            self.rect.x += self.change_x
             self.dir_face = "right"
             self.frames_ = ['assets/mario/Rmario_walk_1.bmp', 'assets/mario/Rmario_walk_2.bmp',
                             'assets/mario/Rmario_walk_3.bmp']
@@ -121,7 +123,6 @@ class Mario(Sprite):
                 self.timer.frames = self.frames_
                 self.timer.reset()
 
-        self.rect.x += self.change_x
         # self.change_x = self.fric
         if self.rect.centerx < round(self.ai_settings.screen_width / 2) and self.mov_right:
             self.go_right()
@@ -137,6 +138,7 @@ class Mario(Sprite):
             for chunk in self.chunks:
                 chunk.check_edge -= self.change_x
             self.rect.x -= self.change_x
+
 
         self.change_x = self.fric
         self.calc_grav()
