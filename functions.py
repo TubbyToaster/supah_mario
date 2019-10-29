@@ -58,8 +58,8 @@ def create_bg_blocks(ai_settings, screen, image, bg_blocks, rx, ry, xx, type_):
     bg_blocks.add(block)
 
 
-def create_enemy(ai_settings, screen, g_blocks, bg_blocks, mario, enemies, type, rcenter, bottom, center):
-    enemy = Enemy(ai_settings, screen, g_blocks, bg_blocks, mario, type, rcenter, bottom, center)
+def create_enemy(ai_settings, screen, g_blocks, bg_blocks, enemies, type, rcenter, bottom, center):
+    enemy = Enemy(ai_settings, screen, g_blocks, bg_blocks, enemies, type, rcenter, bottom, center)
     enemies.add(enemy)
 
 
