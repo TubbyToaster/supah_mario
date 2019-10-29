@@ -34,6 +34,7 @@ def run_game():
     while True:
         gf.check_events(ai_settings, screen, mario, g_blocks, bg_blocks, monitor, items)
         mario.update()
+        enemies.upadte()
 
         gf.update_screen(ai_settings, screen, mario, g_blocks, bg_blocks, enemies, monitor, chunks, items)
 
