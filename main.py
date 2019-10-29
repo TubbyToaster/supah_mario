@@ -2,12 +2,9 @@ import pygame
 from pygame.sprite import Group
 from mario import Mario
 from settings import Settings
-from level_gen import Chunk
 from level_monitor import Monitor
-from enemy import Enemy
-from blocks import Blocks
-import functions as gf
 from scores import Scoreboard
+import functions as gf
 
 mainClock = pygame.time.Clock()
 
@@ -25,22 +22,21 @@ def run_game():
     chunks = Group()
     items = Group()
 
-    monitor = Monitor(ai_settings, screen, g_blocks, bg_blocks, chunks)
+    monitor = Monitor(ai_settings, screen, g_blocks, bg_blocks, chunks, enemies, items)
     mario = Mario(ai_settings, screen, g_blocks, bg_blocks, enemies, monitor, chunks, items)
 
-    #gf.create_enemy(ai_settings, screen, g_blocks, bg_blocks, mario, enemies, "reg", 500, 100, 500)
-    #gf.create_enemy(ai_settings, screen, g_blocks, bg_blocks, mario, enemies, "reg", 520, 400, 500)
+    gf.create_enemy(ai_settings, screen, g_blocks, bg_blocks, mario, enemies, "koopa", 620, 400, 500, items)
 
     gf.create_item(ai_settings, screen, g_blocks, bg_blocks, mario, items, "fireflower", 500, 400, 500, True, False)
 
     while True:
-        gf.check_events(ai_settings, screen, mario, g_blocks, bg_blocks, monitor, items)
-        mario.update()
+        gf.check_events(ai_settings, screen, mario, g_blocks, bg_blocks, items)
+        mario.update(scores, ai_settings)
         gf.check_time(ai_settings, scores)
 
         gf.update_screen(ai_settings, screen, mario, g_blocks, bg_blocks, enemies, monitor, chunks, items, scores)
 
-        mainClock.tick(40)
+        mainClock.tick(120)
 
 
 run_game()
