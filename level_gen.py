@@ -3,10 +3,11 @@ from pygame.sprite import Sprite
 from blocks import Blocks
 from functions import create_g_blocks
 from functions import create_bg_blocks
+from functions import create_enemy
 
 
 class Chunk():
-    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, map_):
+    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, map_, enemies ):
         super(Chunk, self).__init__()
         self.screen = screen
         self.g_blocks = g_blocks
@@ -16,6 +17,8 @@ class Chunk():
         self.map = map_
         self.check_edge = 720
         self.total = 225
+        #self.mario = mario
+        self.enemies = enemies
 
     def gen(self, left, chunk_type):
         x = left
@@ -175,6 +178,13 @@ class Chunk():
                                         "assets/interactible/qblock_used_1.bmp",
                                         self.g_blocks, x, y, 400, "hidden")
                                         # change type?
+                    if col == "@":
+                        create_enemy(self.ai_settings, self.screen, self.g_blocks,
+                                     self.bg_blocks,  self.enemies, "goomba", x, y, 400)
+
+                    if col == "#":
+                        create_enemy(self.ai_settings, self.screen, self.g_blocks,
+                                     self.bg_blocks,  self.enemies, "koopa", x, y, 400)
                     x += 48
                 y += 48
                 x = left
