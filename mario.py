@@ -48,6 +48,7 @@ class Mario(Sprite):
         self.size = 0
         self.death_blow = False
         self.dir_face = "right"
+        self.shell_time = 6
         self.fireball_count = 0
 
     def go_left(self):
@@ -217,17 +218,39 @@ class Mario(Sprite):
                     if block.type_ == "bricks" and (self.state == "super" or self.state == "fire"):
                         block.dead = 1
                 self.change_y = 0
-        for enemy in self.enemies:
+         for enemy in self.enemies:
+            if self.rect.right + 300 > enemy.rect.left:
+                enemy.state = "active"
             if self.rect.colliderect(enemy.rect) and self.death == False:
                 if self.change_y > 0:
                     self.rect.bottom = enemy.rect.top
                     self.change_y = -5
                     self.jumping = True
                     self.change_y = 0
-                    self.enemies.remove(enemy)
+                    enemy.dead_enemy()
+                    print("hello")
+                    print(enemy.rect.left)
+                    #self.enemies.remove(enemy)
+                elif enemy.type == "shell":
+                    if self.dir_face == "right":
+                        enemy.mov_right = True
+                        enemy.mov_left = False
+                        enemy.state = "active"
+                        enemy.type = "shell_mov"
+                        self.shell_time = 10
+                    elif self.dir_face == "left":
+                        enemy.mov_right = False
+                        enemy.mov_left = True
+                        enemy.state = "active"
+                        enemy.type = "shell_mov"
+                        self.shell_time = 10
+
+
                 elif self.change_y < 0:
                     self.rect.top = enemy.rect.bottom
-                else:
+                elif self.shell_time <= 0:
+                    self.death_blow = True
+                elif enemy.type != "shell" and enemy.type != "shell_mov":
                     self.death_blow = True
                 self.change_y = 0
         for item in self.items:
