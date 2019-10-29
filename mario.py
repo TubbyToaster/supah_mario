@@ -195,10 +195,10 @@ class Mario(Sprite):
             self.rect.x -= self.change_x
 
         for block in self.g_blocks:
-            if self.rect.colliderect(block.rect) and not self.death and block.type_ != "?":
-                if self.change_x > 0 and block.type_ != "?":  # and self.rect.bottom != block.rect.top:
+            if self.rect.colliderect(block.rect) and not self.death and block.type_ != "hidden":
+                if self.change_x > 0 and block.type_ != "hidden":  # and self.rect.bottom != block.rect.top:
                     self.rect.right = block.rect.left
-                elif self.change_x < 0 and block.type_ != "?":  # and self.rect.bottom != block.rect.top:
+                elif self.change_x < 0 and block.type_ != "hidden":  # and self.rect.bottom != block.rect.top:
                     self.rect.left = block.rect.right
 
         self.change_x = self.fric
@@ -207,13 +207,15 @@ class Mario(Sprite):
         self.rect.y += self.change_y
         for block in self.g_blocks:
             if self.rect.colliderect(block.rect) and not self.death:
-                if self.change_y > 0 and block.type_ != "?":
+                if self.change_y > 0 and block.type_ != "hidden":
                     self.rect.bottom = block.rect.top
                     self.landed = True
                 elif self.change_y < 0:
                     self.rect.top = block.rect.bottom
                     self.jumping_press = False
                     self.cur_item(block)
+                    if block.type_ == "bricks" and (self.state == "super" or self.state == "fire"):
+                        block.dead = 1
                 self.change_y = 0
         for enemy in self.enemies:
             if self.rect.colliderect(enemy.rect) and self.death == False:
@@ -279,6 +281,7 @@ class Mario(Sprite):
             self.image_index = self.image_
 
     def cur_item(self, block):
+
         if block.type_ == "pup" and self.state == "reg":
             if self.dir_face == "right":
                 l = False
@@ -288,12 +291,13 @@ class Mario(Sprite):
                 r = False
             create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self, self.items,
                     "mushroom", float(block.rect.x)+25,
-                        block.rect.bottom-30,
+                        block.rect.bottom-60,
                         float(block.rect.x), l, r)
-        if block.type_ == "pup" and self.state == "super":
+        if block.type_ == "pup" and (self.state == "super" or self.state == "fire"):
             create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self, self.items,
                     "fireflower", float(block.rect.x)+25,
                         block.rect.bottom-30,
                         float(block.rect.x), False, False)
 
         block.blipup()
+
