@@ -9,8 +9,9 @@ class Items(Sprite):
         super(Items, self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
-        self.image_ = pygame.image.load('assets/interactible/Rshroom.bmp')
-        self.rect = self.image_.get_rect()
+        self.type = type_
+        self.load_images()
+        self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         self.rect.centerx = rcenter
         self.rect.bottom = bottom
@@ -24,7 +25,6 @@ class Items(Sprite):
         self.image_index = 1
         self.image_cap = 10
         self.spd = 5
-        self.type = type_
         self.mario = mario
         self.vy = 0
         self.pos = 200
@@ -43,6 +43,30 @@ class Items(Sprite):
         self.falling = False
         self.landed = True
 
+    def load_images(self):
+        if self.type == "mushroom":
+            self.image = pygame.image.load('assets/interactible/Rshroom.bmp')
+            self.frames_ = ['assets/interactible/Rshroom.bmp']
+        elif self.type == "star":
+            self.image = pygame.image.load('assets/interactible/star_1.bmp')
+            self.frames_ = ['assets/interactible/star_1.bmp','assets/interactible/star_2.bmp',
+                            'assets/interactible/star_3.bmp','assets/interactible/star_4.bmp']
+        elif self.type == "coin":
+            self.image_ = pygame.image.load('assets/interactible/coin_1_1.bmp')
+        elif self.type == "fireflower":
+            self.image = pygame.image.load('assets/interactible/ff_1_1.bmp')
+            self.frames_ = ['assets/interactible/ff_1_2.bmp','assets/interactible/ff_1_2.bmp',
+                            'assets/interactible/ff_1_3.bmp','assets/interactible/ff_1_4.bmp']
+        elif self.type == "1upshroom":
+            self.image_ = pygame.image.load('assets/interactible/L1up.bmp')
+        elif self.type == "fireball":
+            self.image = pygame.image.load('assets/special/fire_1.bmp')
+            self.frames_ = ['assets/special/fire_1.bmp','assets/special/fire_2.bmp',
+                            'assets/special/fire_3.bmp','assets/special/fire_4.bmp']
+
+        self.timer = Timer(self.frames_, wait=150)
+
+
     def go_left(self):
         self.change_x -= self.fric
 
@@ -57,6 +81,7 @@ class Items(Sprite):
 
     def update(self):
         self.check_screen()
+        self.image = pygame.image.load(self.timer.imagerect())
 
         if self.type == "fireball" and (self.rect.left < 0 or self.rect.right > self.screen_rect.right):
             self.mario.fireball_count -= 1
@@ -135,19 +160,8 @@ class Items(Sprite):
             self.rect.y = 800 - self.rect.height
 
     def blitme(self):
-        if self.type == "star":
-            self.image_ = pygame.image.load('assets/interactible/star_1.bmp')
-        elif self.type == "coin":
-            self.image_ = pygame.image.load('assets/interactible/coin_1_1.bmp')
-        elif self.type == "mushroom":
-            self.image_ = pygame.image.load('assets/interactible/Lshroom.bmp')
-        elif self.type == "fireflower":
-            self.image_ = pygame.image.load('assets/interactible/ff_1_1.bmp')
-        elif self.type == "1upshroom":
-            self.image_ = pygame.image.load('assets/interactible/L1up.bmp')
-        elif self.type == "fireball":
-            self.image_ = pygame.image.load('assets/interactible/coin_1_1.bmp')
-        self.screen.blit(self.image_, self.rect)
+
+        self.screen.blit(self.image, self.rect)
 
     def center_mario(self):
         self.center = self.screen_rect.centerx
@@ -159,4 +173,5 @@ class Items(Sprite):
 
     def update_frame(self):
         if self.image_index == 0:
-            self.image_index = self.image_
+            self.image_index = self.image
+
