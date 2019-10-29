@@ -1,15 +1,18 @@
 import pygame
 from pygame.sprite import Sprite
+
+from functions import create_item
 from timer import Timer
 
 
 class Mario(Sprite):
-    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, enemies, monitor, chunks):
+    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, enemies, monitor, chunks, items):
         super(Mario, self).__init__()
         self.screen = screen
         self.monitor = monitor
         self.ai_settings = ai_settings
         self.chunks = chunks
+        self.items = items
         self.image = pygame.image.load('assets/mario/Rmario_stand.bmp')
         self.frames_ = ['assets/mario/fmario_turn2L.bmp', 'assets/mario/fmario_turn2R.bmp']
         self.timer = Timer(self.frames_, wait=150)
@@ -37,7 +40,7 @@ class Mario(Sprite):
         self.jump_scaler = 0
         self.land = True
         self.inair = False
-        self.state = "idle"
+        self.state = "reg"
         self.fric = 0
         self.landed = True
         self.death = False
@@ -45,20 +48,22 @@ class Mario(Sprite):
         self.size = 0
         self.death_blow = False
         self.dir_face = "right"
+        self.fireball_count = 0
 
     def go_left(self):
         self.change_x -= self.fric
         self.timer.reset()
 
-
     def go_right(self):
         self.change_x += self.fric
         self.timer.reset()
 
+    def fireball(self):
+        self.size = 0
 
     def update(self):
-
         self.image = pygame.image.load(self.timer.imagerect())
+
 
         if self.rect.y >= 720 - self.rect.height and self.change_y >= 0 and not self.died or self.death_blow:
             self.change_y = -26
@@ -97,35 +102,79 @@ class Mario(Sprite):
                 self.frames_ = ['assets/mario/Rmario_stand.bmp']
             if self.dir_face == "left":
                 self.frames_ = ['assets/mario/Lmario_stand.bmp']
+            if self.state == "super":
+                if self.dir_face == "right":
+                    self.frames_ = ['assets/mario/Rsmario_stand.bmp']
+                if self.dir_face == "left":
+                    self.frames_ = ['assets/mario/Lsmario_stand.bmp']
+            if self.state == "fire":
+                if self.dir_face == "right":
+                    self.frames_ = ['assets/mario/Rfmario_stand.bmp']
+                if self.dir_face == "left":
+                    self.frames_ = ['assets/mario/Lfmario_stand.bmp']
             self.timer.frames = self.frames_
             self.timer.reset()
-
-
 
         if self.mov_left and not self.mov_right:
             self.rect.x += self.change_x
             self.dir_face = "left"
             self.frames_ = ['assets/mario/Lmario_walk_1.bmp', 'assets/mario/Lmario_walk_2.bmp',
                             'assets/mario/Lmario_walk_3.bmp']
+            if self.state == "super":
+                self.frames_ = ['assets/mario/Lsmario_walk_1.bmp', 'assets/mario/Lsmario_walk_2.bmp',
+                                'assets/mario/Lsmario_walk_3.bmp']
+            if self.state == "fire":
+                self.frames_ = ['assets/mario/Lfmario_walk_1.bmp', 'assets/mario/Lfmario_walk_2.bmp',
+                                'assets/mario/Lfmario_walk_3.bmp']
             self.timer.frames = self.frames_
-            #self.timer.reset()
-
+            # self.timer.reset()
 
         if self.mov_right and not self.mov_left:
             self.rect.x += self.change_x
             self.dir_face = "right"
             self.frames_ = ['assets/mario/Rmario_walk_1.bmp', 'assets/mario/Rmario_walk_2.bmp',
                             'assets/mario/Rmario_walk_3.bmp']
+            if self.state == "super":
+                self.frames_ = ['assets/mario/Rsmario_walk_1.bmp', 'assets/mario/Rsmario_walk_2.bmp',
+                                'assets/mario/Rsmario_walk_3.bmp']
+            if self.state == "fire":
+                self.frames_ = ['assets/mario/Rfmario_walk_1.bmp', 'assets/mario/Rfmario_walk_2.bmp',
+                                'assets/mario/Rfmario_walk_3.bmp']
             self.timer.frames = self.frames_
-            #self.timer.reset()
+            # self.timer.reset()
 
-        if self.inair:
+        if self.mov_right and self.fric < 0:
+            self.frames_ = ['assets/mario/mario_turn2R.bmp']
+            if self.state == "super":
+                self.frames_ = ['assets/mario/smario_turn2R.bmp']
+            if self.state == "fire":
+                self.frames_ = ['assets/mario/fmario_turn2R.bmp']
+            self.timer.frames = self.frames_
+            self.timer.reset()
+        if self.mov_left and self.fric > 0:
+            self.frames_ = [ 'assets/mario/mario_turn2L.bmp']
+            if self.state == "super":
+                self.frames_ = ['assets/mario/smario_turn2L.bmp']
+            if self.state == "fire":
+                self.frames_ = ['assets/mario/fmario_turn2L.bmp']
+            self.timer.frames = self.frames_
+            self.timer.reset()
+
+        if self.inair and not self.died:
             if not self.landed and self.dir_face == "right":
                 self.frames_ = ['assets/mario/Rmario_jump.bmp']
+                if self.state == "super":
+                    self.frames_ = ['assets/mario/Rsmario_jump.bmp']
+                if self.state == "fire":
+                    self.frames_ = ['assets/mario/Rfmario_jump.bmp']
                 self.timer.frames = self.frames_
                 self.timer.reset()
             if not self.landed and self.dir_face == "left":
                 self.frames_ = ['assets/mario/Lmario_jump.bmp']
+                if self.state == "super":
+                    self.frames_ = ['assets/mario/Lsmario_jump.bmp']
+                if self.state == "fire":
+                    self.frames_ = ['assets/mario/Lfmario_jump.bmp']
                 self.timer.frames = self.frames_
                 self.timer.reset()
 
@@ -134,11 +183,11 @@ class Mario(Sprite):
             self.go_right()
         elif self.rect.centerx > round(self.ai_settings.screen_width / 2) and self.mov_right and not self.mov_left:
             for blocks in self.g_blocks:
-                # blocks.x -= self.change_x
                 blocks.rect.x -= self.change_x
             for blocks in self.bg_blocks:
-                # blocks.x -= self.change_x
                 blocks.rect.x -= self.change_x
+            for item in self.items:
+                item.rect.x -= self.change_x
             for enemy in self.enemies:
                 enemy.rect.x -= self.change_x
             for chunk in self.chunks:
@@ -146,26 +195,25 @@ class Mario(Sprite):
             self.rect.x -= self.change_x
 
         for block in self.g_blocks:
-            if self.rect.colliderect(block.rect) and self.death == False:
-                if self.change_x > 0: # and self.rect.bottom != block.rect.top:
+            if self.rect.colliderect(block.rect) and not self.death and block.type_ != "?":
+                if self.change_x > 0 and block.type_ != "?":  # and self.rect.bottom != block.rect.top:
                     self.rect.right = block.rect.left
-                elif self.change_x < 0: # and self.rect.bottom != block.rect.top:
+                elif self.change_x < 0 and block.type_ != "?":  # and self.rect.bottom != block.rect.top:
                     self.rect.left = block.rect.right
 
         self.change_x = self.fric
         self.calc_grav()
 
-
         self.rect.y += self.change_y
         for block in self.g_blocks:
-            if self.rect.colliderect(block.rect) and self.death == False:
-                if self.change_y > 0:
+            if self.rect.colliderect(block.rect) and not self.death:
+                if self.change_y > 0 and block.type_ != "?":
                     self.rect.bottom = block.rect.top
                     self.landed = True
                 elif self.change_y < 0:
                     self.rect.top = block.rect.bottom
                     self.jumping_press = False
-                    block.blipup()
+                    self.cur_item(block)
                 self.change_y = 0
         for enemy in self.enemies:
             if self.rect.colliderect(enemy.rect) and self.death == False:
@@ -180,6 +228,31 @@ class Mario(Sprite):
                 else:
                     self.death_blow = True
                 self.change_y = 0
+        for item in self.items:
+            if self.rect.colliderect(item.rect) and self.death == False and item.type != "fireball":
+                if item.type == "mushroom":
+                    self.grow_up()
+                    self.state = "super"
+                if self.state == "super" and item.type == "fireflower":
+                    self.state = "fire"
+                if self.state != "super" and item.type == "fireflower":
+                    self.grow_up()
+                    self.state = "fire"
+
+                self.items.remove(item)
+
+    def grow_up(self):
+        temp1 = self.screen_rect
+        temp2 = self.rect.centerx
+        temp3 = self.rect.bottom
+        temp4 = self.center
+        im = pygame.image.load('assets/mario/Rsmario_stand.bmp')
+        self.rect = im.get_rect()
+        self.screen_rect = temp1
+        self.rect.centerx = temp2
+        self.rect.bottom = temp3
+        self.center = temp4
+
 
     def calc_grav(self):
         if self.change_y == 0:
@@ -194,7 +267,7 @@ class Mario(Sprite):
         self.screen.blit(self.image, self.rect)
 
     def center_mario(self):
-        self.center = self.screen_rect.centerx
+        return self.screen_rect.centerx
 
     def image_up(self):
         self.image_index += .5
@@ -205,3 +278,22 @@ class Mario(Sprite):
         if self.image_index == 0:
             self.image_index = self.image_
 
+    def cur_item(self, block):
+        if block.type_ == "pup" and self.state == "reg":
+            if self.dir_face == "right":
+                l = False
+                r = True
+            if self.dir_face == "left":
+                l = True
+                r = False
+            create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self, self.items,
+                    "mushroom", float(block.rect.x)+25,
+                        block.rect.bottom-30,
+                        float(block.rect.x), l, r)
+        if block.type_ == "pup" and self.state == "super":
+            create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self, self.items,
+                    "fireflower", float(block.rect.x)+25,
+                        block.rect.bottom-30,
+                        float(block.rect.x), False, False)
+
+        block.blipup()
