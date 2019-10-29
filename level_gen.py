@@ -1,9 +1,11 @@
 from functions import create_g_blocks
 from functions import create_bg_blocks
+from functions import create_enemy
+import mario
 
 
-class Chunk():
-    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, map_):
+class Chunk:
+    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, map_, enemies, items):
         super(Chunk, self).__init__()
         self.screen = screen
         self.g_blocks = g_blocks
@@ -13,6 +15,8 @@ class Chunk():
         self.map = map_
         self.check_edge = 720
         self.total = 225
+        self.items = items
+        self.enemies = enemies
 
     def gen(self, left, chunk_type):
         x = left
@@ -136,42 +140,49 @@ class Chunk():
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/brick_2.bmp",
                                         self.g_blocks, x, y, 400, "bricks")
-                                        #change type?
+                        # change type?
                     if col == "u":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/qblock_1.bmp",
                                         self.g_blocks, x, y, 400, "qcoin")
-                                        # change type?
+                        # change type?
                     if col == "v":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/qblock_used_1.bmp",
                                         self.g_blocks, x, y, 400, "reg")
-                                        # change type?
+                        # change type?
                     if col == "y":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/qblock_1.bmp",
                                         self.g_blocks, x, y, 400, "pup")
-                                        # change type?  QBLOCK WITH P-UP
+                        # change type?  QBLOCK WITH P-UP
                     if col == "z":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/brick_2.bmp",
                                         self.g_blocks, x, y, 400, "bcoin")
-                                        # change type?  BRICK WITH COIN
+                        # change type?  BRICK WITH COIN
                     if col == ".":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/brick_2.bmp",
                                         self.g_blocks, x, y, 400, "star")
-                                        # change type?  BRICK WITH STAR
+                        # change type?  BRICK WITH STAR
                     if col == "|":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/bg_tiles/pole.bmp",
                                         self.g_blocks, x, y, 400, "invs")
-                                        # change type
+                        # change type
                     if col == "?":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/qblock_used_1.bmp",
                                         self.g_blocks, x, y, 400, "hidden")
-                                        # change type?
+                        # change type?
+                    if col == "@":
+                        create_enemy(self.ai_settings, self.screen, self.g_blocks,
+                                     self.bg_blocks, mario, self.enemies, "goomba", x, y, 400, self.items)
+
+                    if col == "#":
+                        create_enemy(self.ai_settings, self.screen, self.g_blocks,
+                                     self.bg_blocks, mario, self.enemies, "koopa", x, y, 400, self.items)
                     x += 48
                 y += 48
                 x = left
@@ -278,17 +289,17 @@ class Chunk():
                         create_bg_blocks(self.ai_settings, self.screen,
                                          "assets/bg_tiles/tree_thick.bmp",
                                          self.bg_blocks, x, y, 400, "reg")
-                                        #change type?
+                        # change type?
                     elif col == "5":
                         create_bg_blocks(self.ai_settings, self.screen,
                                          "assets/special/flag_1_1.bmp",
                                          self.bg_blocks, x, y, 400, "reg")
-                                        #change type?
+                        # change type?
                     elif col == "6":
                         create_bg_blocks(self.ai_settings, self.screen,
                                          "assets/special/flag_1_2.bmp",
                                          self.bg_blocks, x, y, 400, "reg")
-                                        #change type?
+                        # change type?
                     x += 48
                 y += 48
                 x = left
