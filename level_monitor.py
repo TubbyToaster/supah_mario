@@ -2,12 +2,13 @@ from level_gen import Chunk
 
 
 class Monitor:
-    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, chunks):
+    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, chunks, enemies, items):
         self.ai_settings = ai_settings
         self.screen = screen
         self.g_blocks = g_blocks
         self.bg_blocks = bg_blocks
         self.x = 0
+        self.items = items
         self.screen_rect = screen.get_rect()
         self.pos = 0
         self.cur = 1
@@ -17,6 +18,8 @@ class Monitor:
         self.init_level()
         self.mario_pos = 0
         self.chunks = chunks
+        # self.mario = mario
+        self.enemies = enemies
 
     def init_level(self):
         a1 = [
@@ -50,7 +53,7 @@ class Monitor:
             "0u000tytut00000",
             "000000000000000",
             "000000000000023",
-            "000000000000054",
+            "0000000@0000054",
             "111111111111111",
             "111111111111111"
         ]
@@ -68,7 +71,7 @@ class Monitor:
             "000000000000000",
             "000000002300000",
             "000000005400000",
-            "000000005400000",
+            "0000@0005400000",
             "111111111111111",
             "111111111111111"
         ]
@@ -86,7 +89,7 @@ class Monitor:
             "023000000000230",
             "054000000000540",
             "054000000000540",
-            "054000000000540",
+            "0540000@0@00540",
             "111111111111111",
             "111111111111111"
         ]
@@ -114,7 +117,7 @@ class Monitor:
             "000000000000000",
             "000000000000000",
             "000000000000000",
-            "000000000000000",
+            "000000@0@000000",
             "00000tttttttt00",
             "000000000000000",
             "000000000000000",
@@ -140,7 +143,7 @@ class Monitor:
             "0000z00000t.000",
             "000000000000000",
             "000000000000000",
-            "000000000000000",
+            "0000000@0@00000",
             "111111111111111",
             "111111111111111"
         ]
@@ -158,7 +161,7 @@ class Monitor:
             "0u00u00u00000t0",
             "000000000000000",
             "000000000000000",
-            "000000000000000",
+            "00#000000@0@000",
             "111111111111111",
             "111111111111111"
         ]
@@ -176,7 +179,7 @@ class Monitor:
             "000000000tt0000",
             "000000000000000",
             "000000000000000",
-            "000000000000006",
+            "00000@@00@@0006",
             "111111111111111",
             "111111111111111"
         ]
@@ -230,7 +233,7 @@ class Monitor:
             "000ttut00000000",
             "000000000000000",
             "000000000000002",
-            "000000000000005",
+            "00000000@@00005",
             "111111111111111",
             "111111111111111"
         ]
@@ -631,7 +634,7 @@ class Monitor:
         self.level_listbg = [b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17]
         self.level_cret = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    def update(self):
+    def update(self, enemies, items):
 
         if self.cur == 1:
             self.pos = 0
@@ -639,11 +642,13 @@ class Monitor:
             chck = 0
             num = 0
             for ll in self.level_list:
-                g1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_list[num])
+                g1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks,
+                               ll, enemies, items)
                 g1_1_2.gen(chck, "g")
                 g1_1_2.check_edge = chck
 
-                bg1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_listbg[num])
+                bg1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks,
+                                self.level_listbg[num], enemies, items)
                 bg1_1_2.gen(chck, "bg")
                 bg1_1_2.check_edge = chck
                 chck += 720
