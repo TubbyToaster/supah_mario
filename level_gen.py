@@ -138,43 +138,38 @@ class Chunk():
                     if col == "t":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/brick_2.bmp",
-                                        self.g_blocks, x, y, 400, "reg")
+                                        self.g_blocks, x, y, 400, "bricks")
                                         #change type?
                     if col == "u":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/qblock_1.bmp",
-                                        self.g_blocks, x, y, 400, "reg")
+                                        self.g_blocks, x, y, 400, "qcoin")
                                         # change type?
                     if col == "v":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/qblock_used_1.bmp",
                                         self.g_blocks, x, y, 400, "reg")
                                         # change type?
-                    if col == "w":
-                        create_g_blocks(self.ai_settings, self.screen,
-                                        "assets/special/flag_1_1.bmp",
-                                        self.g_blocks, x, y, 400, "reg")
-                                        # change type?
-                    if col == "x":
-                        create_g_blocks(self.ai_settings, self.screen,
-                                        "assets/special/flag_1_2.bmp",
-                                        self.g_blocks, x, y, 400, "reg")
-                                        # change type?
                     if col == "y":
                         create_g_blocks(self.ai_settings, self.screen,
-                                        "assets/special/qblock_1.bmp",
-                                        self.g_blocks, x, y, 400, "reg")
+                                        "assets/interactible/qblock_1.bmp",
+                                        self.g_blocks, x, y, 400, "pup")
                                         # change type?  QBLOCK WITH P-UP
                     if col == "z":
                         create_g_blocks(self.ai_settings, self.screen,
-                                        "assets/special/brick_2.bmp",
-                                        self.g_blocks, x, y, 400, "reg")
+                                        "assets/interactible/brick_2.bmp",
+                                        self.g_blocks, x, y, 400, "bcoin")
                                         # change type?  BRICK WITH COIN
                     if col == ".":
                         create_g_blocks(self.ai_settings, self.screen,
-                                        "assets/special/brick_2.bmp",
-                                        self.g_blocks, x, y, 400, "reg")
+                                        "assets/interactible/brick_2.bmp",
+                                        self.g_blocks, x, y, 400, "star")
                                         # change type?  BRICK WITH STAR
+                    if col == "|":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/bg_tiles/pole.bmp",
+                                        self.g_blocks, x, y, 400, "invs")
+                                        # change type?
                     x += 48
                 y += 48
                 x = left
@@ -280,6 +275,16 @@ class Chunk():
                     elif col == "4":
                         create_bg_blocks(self.ai_settings, self.screen,
                                          "assets/bg_tiles/tree_thick.bmp",
+                                         self.bg_blocks, x, y, 400, "reg")
+                                        #change type?
+                    elif col == "5":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/special/flag_1_1.bmp",
+                                         self.bg_blocks, x, y, 400, "reg")
+                                        #change type?
+                    elif col == "6":
+                        create_bg_blocks(self.ai_settings, self.screen,
+                                         "assets/special/flag_1_2.bmp",
                                          self.bg_blocks, x, y, 400, "reg")
                                         #change type?
                     x += 48
