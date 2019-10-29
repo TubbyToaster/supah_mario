@@ -2,12 +2,13 @@ from level_gen import Chunk
 
 
 class Monitor:
-    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, chunks, enemies ):
+    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, chunks, enemies, items):
         self.ai_settings = ai_settings
         self.screen = screen
         self.g_blocks = g_blocks
         self.bg_blocks = bg_blocks
         self.x = 0
+        self.items = items
         self.screen_rect = screen.get_rect()
         self.pos = 0
         self.cur = 1
@@ -804,12 +805,13 @@ class Monitor:
             chck = 0
             num = 0
             for ll in self.level_list:
-                g1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_list[num],  self.enemies)
+                g1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_list[num],  self.enemies, self.items)
                 g1_1_2.gen(chck, "g")
                 g1_1_2.check_edge = chck
 
-                bg1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_listbg[num],  self.enemies)
+                bg1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_listbg[num],  self.enemies, self.items)
                 bg1_1_2.gen(chck, "bg")
                 bg1_1_2.check_edge = chck
                 chck += 720
                 num +=1
+            
