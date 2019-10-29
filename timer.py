@@ -1,5 +1,6 @@
 import pygame
 
+
 class Timer:
     def __init__(self, frames, wait=100, frameindex=0, step=1, looponce=False):
         self.frames = frames
@@ -29,7 +30,9 @@ class Timer:
     def reset(self):
         self.last = None
         self.finished = False
+
     def __str__(self): return 'Timer(frames=' + self.frames +\
                               ', wait=' + str(self.wait) + ', index=' + str(self.frameindex) + ')'
+
     def imagerect(self):
         return self.frames[self.frame_index()]
