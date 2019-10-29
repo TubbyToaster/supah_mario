@@ -136,4 +136,3 @@ class Scoreboard:
         self.lives_title_rect.top = 5
         self.lives_rect.centerx = 1296
         self.lives_rect.top = 40
-
