@@ -160,6 +160,21 @@ class Chunk():
                                         "assets/special/flag_1_2.bmp",
                                         self.g_blocks, x, y, 400, "reg")
                                         # change type?
+                    if col == "y":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/special/qblock_1.bmp",
+                                        self.g_blocks, x, y, 400, "reg")
+                                        # change type?  QBLOCK WITH P-UP
+                    if col == "z":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/special/brick_2.bmp",
+                                        self.g_blocks, x, y, 400, "reg")
+                                        # change type?  BRICK WITH COIN
+                    if col == ".":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/special/brick_2.bmp",
+                                        self.g_blocks, x, y, 400, "reg")
+                                        # change type?  BRICK WITH STAR
                     x += 48
                 y += 48
                 x = left
