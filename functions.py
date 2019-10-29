@@ -1,6 +1,3 @@
-import sys
-import pygame
-from blocks import Blocks
 from enemy import Enemy
 from items import Items
 
@@ -14,6 +11,10 @@ def check_keyup_events(ai_settings, screen, event, mario, g_blocks, bg_blocks, i
         mario.change_x = 0
     if event.key == pygame.K_UP:
         mario.jumping_press = False
+    if event.key == pygame.K_DOWN:
+        mario.crouch = False
+        if mario.state == "super" or mario.state == "fire":
+            mario.grow_up('assets/mario/Rsmario_stand.bmp')
     if event.key == pygame.K_SPACE and mario.state == "fire":
         mario.fireball()
         if mario.dir_face == "left":
@@ -32,8 +33,10 @@ def check_keydown_events(event, mario):
     elif event.key == pygame.K_LEFT and not mario.died:
         mario.mov_left = True
         mario.go_left()
+    elif event.key == pygame.K_DOWN and not mario.died:
+        mario.crouch = True
 
-    if event.key == pygame.K_UP and mario.landed == True and not mario.died:
+    if event.key == pygame.K_UP and mario.landed is True and not mario.died:
         mario.landed = False
         if not mario.jumping:
             mario.jumping = True
@@ -43,7 +46,7 @@ def check_keydown_events(event, mario):
 
 
 def create_g_blocks(ai_settings, screen, image, g_blocks, rx, ry, xx, type_):
-    block = Blocks(ai_settings, screen, image, rx, ry, 0, type_)
+    block = Blocks(ai_settings, screen, image, rx, ry, type_)
     block.rect.y = ry
     block.rect.x = rx
     block.x = xx
@@ -51,34 +54,23 @@ def create_g_blocks(ai_settings, screen, image, g_blocks, rx, ry, xx, type_):
 
 
 def create_bg_blocks(ai_settings, screen, image, bg_blocks, rx, ry, xx, type_):
-    block = Blocks(ai_settings, screen, image, rx, ry, 0, type_)
+    block = Blocks(ai_settings, screen, image, rx, ry, type_)
     block.rect.y = ry
     block.rect.x = rx
     block.x = xx
     bg_blocks.add(block)
 
 
-def create_enemy(ai_settings, screen, g_blocks, bg_blocks, mario, enemies, type, rcenter, bottom, center):
-    enemy = Enemy(ai_settings, screen, g_blocks, bg_blocks, mario, type, rcenter, bottom, center)
+def create_enemy(ai_settings, screen, g_blocks, bg_blocks, mario, enemies, enemy_type, rcenter, bottom, center, items):
+    enemy = Enemy(ai_settings, screen, g_blocks, bg_blocks, mario, enemy_type, rcenter, bottom, center, items)
     enemies.add(enemy)
 
 
-def create_item(ai_settings, screen, g_blocks, bg_blocks, mario, items, type, rcenter, bottom, center, mov_left,
+def create_item(ai_settings, screen, g_blocks, bg_blocks, mario, items, item_type, rcenter, bottom, center, mov_left,
                 mov_right):
-    item = Items(ai_settings, screen, g_blocks, bg_blocks, mario, type, rcenter, bottom, center, mov_left, mov_right)
+    item = Items(ai_settings, screen, g_blocks, bg_blocks, mario, item_type, rcenter, bottom,
+                 center, mov_left, mov_right)
     items.add(item)
-
-
-def check_events(ai_settings, screen, mario, g_blocks, bg_blocks, monitor, items):
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, mario)
-        elif event.type == pygame.KEYUP:
-            check_keyup_events(ai_settings, screen, event, mario, g_blocks, bg_blocks, items)
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_x, mouse_y = pygame.mouse.get_pos()
 
 
 def check_time(ai_settings, scores):
@@ -86,10 +78,20 @@ def check_time(ai_settings, scores):
     scores.prep_time()
 
 
+def check_events(ai_settings, screen, mario, g_blocks, bg_blocks, items):
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            check_keydown_events(event, mario)
+        elif event.type == pygame.KEYUP:
+            check_keyup_events(ai_settings, screen, event, mario, g_blocks, bg_blocks, items)
+
+
 def update_screen(ai_settings, screen, mario, g_blocks, bg_blocks, enemies, monitor, chunks, items, scores):
     screen.fill(ai_settings.bg_color)
 
-    monitor.update()
+    monitor.update(enemies, items)
 
     for el in bg_blocks:
         el.blitme()
