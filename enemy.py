@@ -1,18 +1,21 @@
 import pygame
 import math
 from pygame.sprite import Sprite
-from pygame.math import Vector2
+from timer import Timer
 
 
 class Enemy(Sprite):
-    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, mario, type_, rcenter, bottom, center):
+    def __init__(self, ai_settings, screen, g_blocks, bg_blocks,  enemies, type_, rcenter, bottom, center):
         super(Enemy, self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
-        self.image_ = pygame.image.load('assets/block.bmp')
+        self.image_ = pygame.image.load('assets/enemies/goomba_1.bmp')
+        self.frames_ = ['assets/enemies/goomba_1.bmp', 'assets/enemies/goomba_2.bmp']
+        self.timer = Timer(self.frames_, wait=150)
         self.rect = self.image_.get_rect()
         self.screen_rect = screen.get_rect()
         self.rect.centerx = rcenter
+        self.enemies = enemies
         self.rect.bottom = bottom #self.screen_rect.bottom
         self.center = center #float(self.rect.centerx)
         self.mov_right = False
@@ -21,7 +24,7 @@ class Enemy(Sprite):
         self.image_cap = 10
         self.spd = 5
         self.type = type_
-        self.mario = mario
+        #self.mario = mario
         self.vy = 0
         self.pos = 200
         self.jumping = False
@@ -36,12 +39,21 @@ class Enemy(Sprite):
         self.inair = False
         self.state = "idle"
         self.fric = 0
+        self.landed = True
+        self.death = False
+        self.died = False
+        self.size = 0
+        self.death_blow = False
+        self.dir_face = "left"
+        self.deathTime = -1
 
     def go_left(self):
         self.change_x -= self.fric
+        self.timer.reset()
 
     def go_right(self):
         self.change_x += self.fric
+        self.timer.reset()
 
     def check_screen(self):
         if self.mov_right == True:
@@ -50,7 +62,16 @@ class Enemy(Sprite):
             self.go_left()
 
     def update(self):
-        self.check_screen()
+        if self.deathTime > 0:
+            self.deathTime -= 1
+        if self.deathTime == 0:
+            self.kill()
+            print("death time zero")
+        self.image = pygame.image.load(self.timer.imagerect())
+
+        #if self.rect.left -1000 < self.mario.rect.right:
+            #self.state = "active"
+
         if self.jumping and self.change_y == 0:
             self.change_y = -12
             self.jumping = False
@@ -64,14 +85,49 @@ class Enemy(Sprite):
             self.jump_scaler = 0
 
         ff = 1
-        if self.mov_right and self.fric < 3:
-            self.fric += ff
-        elif self.fric > 0:
-            self.fric -= ff
-        if self.mov_left and self.fric > -3:
-            self.fric -= ff
-        elif self.fric < 0:
-            self.fric += ff
+        if self.state == "active":
+            if self.mov_right and self.fric < 3:
+                self.fric += ff
+            elif self.fric > 0:
+                self.fric -= ff
+            if self.mov_left and self.fric > -3:
+                self.fric -= ff
+            elif self.fric < 0:
+                self.fric += ff
+
+        if self.mov_left and not self.mov_right:
+            self.rect.x += self.change_x
+            self.dir_face = "left"
+            if self.type == "goomba":
+                self.frames_ = ['assets/enemies/goomba_1.bmp', 'assets/enemies/goomba_2.bmp']
+            if self.type == "koopa":
+                self.frames_ = ['assets/enemies/koopa_1.bmp', 'assets/enemies/koopa_2.bmp']
+            if self.type == "shell":
+                self.frames_ = ['assets/enemies/shell_1.bmp', 'assets/enemies/shell_1.bmp']
+            if self.type == "shell_mov":
+                self.frames_ = ['assets/enemies/shell_1.bmp', 'assets/enemies/shell_1.bmp']
+            if self.type == "dead":
+                self.frames_ = ['assets/enemies/goomba_stomp.bmp', 'assets/enemies/goomba_stomp.bmp']
+            self.timer.frames = self.frames_
+
+
+        if self.mov_right and not self.mov_left:
+            self.rect.x += self.change_x
+            self.dir_face = "right"
+            if self.type == "goomba":
+                self.frames_ = ['assets/enemies/goomba_1.bmp', 'assets/enemies/goomba_2.bmp']
+            if self.type == "koopa":
+                self.frames_ = ['assets/enemies/koopa_3.bmp', 'assets/enemies/koopa_4.bmp']
+            if self.type == "shell":
+                self.frames_ = ['assets/enemies/shell_1.bmp', 'assets/enemies/shell_1.bmp']
+            if self.type == "shell_mov":
+                self.frames_ = ['assets/enemies/shell_1.bmp', 'assets/enemies/shell_1.bmp']
+            if self.type == "dead":
+                self.frames_ = ['assets/enemies/goomba_stomp.bmp', 'assets/enemies/goomba_stomp.bmp']
+
+            self.timer.frames = self.frames_
+
+
 
         self.change_x = self.fric
         self.calc_grav()
@@ -96,14 +152,44 @@ class Enemy(Sprite):
                     self.rect.top = block.rect.bottom
                 self.change_y = 0
 
+
+
     def calc_grav(self):
         if self.change_y == 0:
             self.change_y = 1
         else:
             self.change_y += 1
-        if self.rect.y >= 600 - self.rect.height and self.change_y >= 0:
-            self.change_y = 0
-            self.rect.y = 600 - self.rect.height
+        if self.type == "koopa":
+            if self.rect.y >= 600 - self.rect.height and self.change_y >= 0:
+                self.change_y = 0
+                self.rect.y = 600 - self.rect.height
+        if self.type == "goomba":
+            if self.rect.y >= 800 - self.rect.height and self.change_y >= 0:
+                self.change_y = 0
+                self.rect.y = 800 - self.rect.height
+        if self.type == "shell":
+            if self.rect.y >= 800 - self.rect.height and self.change_y >= 0:
+                self.change_y = 0
+                self.rect.y = 800 - self.rect.height
+
+    def dead_enemy(self):
+        self.image_ = pygame.image.load('assets/enemies/goomba_stomp.bmp')
+        self.state = "dead"
+        self.mov_left = False
+        self.mov_right = False
+        if self.type == "goomba":
+            self.frames_ = ['assets/enemies/goomba_stomp.bmp']
+            self.deathTime = 6
+        if self.type == "koopa":
+            self.type = "shell"
+            self.frames_ = ['assets/enemies/shell_1.bmp', 'assets/enemies/shell_1.bmp']
+
+
+        self.timer.frames = self.frames_
+        self.timer.reset()
+        self.timer.looponce = True
+
+
 
     def blitme(self):
         self.screen.blit(self.image_, self.rect)
