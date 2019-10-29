@@ -3,7 +3,7 @@ from pygame.sprite import Sprite
 
 
 class Blocks(Sprite):
-    def __init__(self, ai_settings, screen, image, x, y, num, type_):
+    def __init__(self, ai_settings, screen, image, x, y, type_):
         super(Blocks, self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
@@ -39,7 +39,7 @@ class Blocks(Sprite):
             self.up = False
             self.down_g = 5
 
-        if self.type_ != "hidden":
+        if self.type_ != "hidden" and self.type_ != "invs":
             self.screen.blit(self.image, self.rect)
 
     def update_frame(self):
