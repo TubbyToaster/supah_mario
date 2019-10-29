@@ -1,6 +1,3 @@
-import pygame
-from pygame.sprite import Sprite
-from blocks import Blocks
 from functions import create_g_blocks
 from functions import create_bg_blocks
 
@@ -169,6 +166,11 @@ class Chunk():
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/bg_tiles/pole.bmp",
                                         self.g_blocks, x, y, 400, "invs")
+                                        # change type
+                    if col == "?":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/interactible/qblock_used_1.bmp",
+                                        self.g_blocks, x, y, 400, "hidden")
                                         # change type?
                     x += 48
                 y += 48
