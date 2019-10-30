@@ -42,6 +42,8 @@ class Items(Sprite):
         self.fric = 0
         self.falling = False
         self.landed = True
+        if self.type == "fireball":
+            self.landed = False
 
     def load_images(self):
         if self.type == "mushroom":
@@ -52,13 +54,19 @@ class Items(Sprite):
             self.frames_ = ['assets/interactible/star_1.bmp','assets/interactible/star_2.bmp',
                             'assets/interactible/star_3.bmp','assets/interactible/star_4.bmp']
         elif self.type == "coin":
-            self.image_ = pygame.image.load('assets/interactible/coin_1_1.bmp')
+            self.image = pygame.image.load('assets/special/coin_1.bmp')
+            self.frames_ = ['assets/special/coin_1.bmp','assets/special/coin_2.bmp',
+                            'assets/special/coin_3.bmp','assets/special/coin_4.bmp']
         elif self.type == "fireflower":
             self.image = pygame.image.load('assets/interactible/ff_1_1.bmp')
             self.frames_ = ['assets/interactible/ff_1_2.bmp','assets/interactible/ff_1_2.bmp',
                             'assets/interactible/ff_1_3.bmp','assets/interactible/ff_1_4.bmp']
         elif self.type == "1upshroom":
-            self.image_ = pygame.image.load('assets/interactible/L1up.bmp')
+            self.image = pygame.image.load('assets/interactible/L1up.bmp')
+            self.frames_ = ['assets/interactible/L1up.bmp']
+        elif self.type == "shell_mov":
+            self.image = pygame.image.load('assets/enemies/shell_1.bmp')
+            self.frames_ = ['assets/enemies/shell_1.bmp', 'assets/enemies/shell_1.bmp']
         elif self.type == "fireball":
             self.image = pygame.image.load('assets/special/fire_1.bmp')
             self.frames_ = ['assets/special/fire_1.bmp','assets/special/fire_2.bmp',
@@ -92,7 +100,7 @@ class Items(Sprite):
                 if self.type == "star":
                     self.change_y = -12
                 if self.type == "fireball":
-                    self.change_y = -8
+                    self.change_y = -12
                 self.falling = True
                 self.landed = False
             if self.jump_scaler == 0:
@@ -104,10 +112,11 @@ class Items(Sprite):
             else:
                 self.jump_scaler = 0
 
-        if self.type == "mushroom" or self.type == "star" or self.type == "fireball":
+        if self.type == "1upshroom" or self.type == "mushroom" or self.type == "star" \
+                or self.type == "fireball" or self.type == "shell_mov":
             ff = 1
             max_ = 3
-            if self.type == "fireball":
+            if self.type == "fireball" or self.type == "shell_mov":
                 max_ = 20
                 ff = 10
             if self.mov_right and self.fric < max_:
@@ -153,8 +162,12 @@ class Items(Sprite):
     def calc_grav(self):
         if self.change_y == 0:
             self.change_y = 1
+            if self.type == "fireball":
+                self.change_y = 2
         else:
             self.change_y += 1
+            if self.type == "fireball":
+                self.change_y += 1
         if self.rect.y >= 800 - self.rect.height and self.change_y >= 0:
             self.change_y = 0
             self.rect.y = 800 - self.rect.height
