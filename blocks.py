@@ -41,7 +41,7 @@ class Blocks(Sprite):
             self.up = False
             self.down_g = 5
 
-        if self.type_ != "hidden" and self.type_ != "invs":
+        if self.type_ != "hidden" and self.type_ != "invs" and self.type_ != "winner":
             self.screen.blit(self.image, self.rect)
 
     def update_frame(self):
@@ -49,7 +49,7 @@ class Blocks(Sprite):
             self.image = self.image
 
     def blipup(self):
-        if self.up_g == 0 and self.down_g == 0 and self.type_ != "reg":
+        if self.up_g == 0 and self.down_g == 0 and self.type_ != "reg" and self.type_ != "v":
             self.up_g = 5
             self.up = True
 
@@ -57,7 +57,7 @@ class Blocks(Sprite):
                 self.type_ = "v"
                 self.image =  pygame.image.load("assets/interactible/qblock_used_1.bmp")
 
-            if self.type_ == "qcoin":
+            if self.type_ == "qcoin" or self.type_ == "bcoin":
                 self.type_ = "v"
                 self.image =  pygame.image.load("assets/interactible/qblock_used_1.bmp")
 
