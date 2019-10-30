@@ -83,16 +83,14 @@ class Enemy(Sprite):
         else:
             self.jump_scaler = 0
 
-        ff = 1
+        ff = 2
         if self.state == "active" and self.state != "dead":
-            if self.mov_right and self.fric < 3:
-                self.fric += ff
-            elif self.fric > 0:
-                self.fric -= ff
-            if self.mov_left and self.fric > -3:
-                self.fric -= ff
-            elif self.fric < 0:
-                self.fric += ff
+            if self.mov_right:
+                self.fric = ff
+            if self.mov_left:
+                self.fric = -ff
+        if self.state == "dead":
+            self.fric = 0
 
         if self.mov_left and not self.mov_right and self.state != "dead":
             self.rect.x += self.change_x
@@ -151,9 +149,10 @@ class Enemy(Sprite):
                 self.change_y = 0
 
         for item in self.items:
-            if self.rect.colliderect(item.rect) and self.state != "dead" and item.type == "fireball":
+            if self.rect.colliderect(item.rect) and self.state != "dead" and (item.type == "fireball" or item.type == "shell_mov"):
                 self.kill()
-                item.kill()
+                if item.type != "shell_mov":
+                    item.kill()
 
     def calc_grav(self):
         if self.change_y == 0:
@@ -181,12 +180,16 @@ class Enemy(Sprite):
         self.rect.y += 20
         self.frames_ = ['assets/enemies/goomba_stomp.bmp']
         if self.type == "goomba":
-            self.frames_ = ['assets/enemies/goomba_stomp.bmp']
+            self.frames_ = ['assets/enemies/goomba_stomp.bmp','assets/enemies/goomba_stomp.bmp']
             self.timer.reset()
             self.deathTime = 6
         if self.type == "koopa":
             self.type = "shell"
             self.frames_ = ['assets/enemies/shell_1.bmp', 'assets/enemies/shell_1.bmp']
+            self.timer.reset()
+        elif self.type == "shell":
+            self.frames_ = ['assets/enemies/shell_1.bmp', 'assets/enemies/shell_1.bmp']
+            self.deathTime = 5
             self.timer.reset()
         self.timer.frames = self.frames_
         self.timer.looponce = True
