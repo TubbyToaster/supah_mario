@@ -31,7 +31,7 @@ def run_game():
     #gf.create_enemy(ai_settings, screen, g_blocks, bg_blocks, mario, enemies, "reg", 500, 100, 500)
     gf.create_enemy(ai_settings, screen, g_blocks, bg_blocks, mario, enemies, "koopa", 620, 400, 500, items)
 
-    gf.create_item(ai_settings, screen, g_blocks, bg_blocks, mario, items, "fireflower", 500, 400, 500, True, False)
+    gf.create_item(ai_settings, screen, g_blocks, bg_blocks, mario, items, "star", 500, 400, 500, True, False)
 
     while True:
         gf.check_events(ai_settings, screen, mario, g_blocks, bg_blocks, monitor, items)
@@ -44,4 +44,3 @@ def run_game():
 
 
 run_game()
-
