@@ -268,8 +268,8 @@ class Monitor:
             "000|00000000000",
             "000|00000000000",
             "000|00000000000",
-            "000|00000000000",
-            "000600000000000",
+            "000|000000=====",
+            "0006000000=====",
             "111111111111111",
             "111111111111111"
         ]
@@ -632,184 +632,38 @@ class Monitor:
         ]
         self.level_list = [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17]
         self.level_listbg = [b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17]
-        self.level_cret = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.level_list2 = [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17]
+        self.level_listbg2 = [b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17]
 
-    def update(self):
+    def update(self, list):
 
+        chck = 0
+        num = 0
         if self.cur == 1:
             self.pos = 0
             self.cur = 2
-            chck = 0
-            num = 0
-            for ll in self.level_list:
-                g1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_list[num])
-                g1_1_2.gen(chck, "g")
-                g1_1_2.check_edge = chck
-
-                bg1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_listbg[num])
-                bg1_1_2.gen(chck, "bg")
-                bg1_1_2.check_edge = chck
-                chck += 720
-                num += 1
-
-        b10 = [
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "rbbbbbbbbbbbbbb",
-            "ubbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbhbbb",
-            "bbbbbbbbbbgkibb",
-            "bbbnnbbbbgkjlbb",
-            "aaaaaaaaaaaaaaa",
-            "aaaaaaaaaaaaaaa"
-        ]
-
-        b11 = [
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbpq",
-            "bbpqrbbbbbbbbst",
-            "bbstubbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbhbbb",
-            "bbbbbbbbbogkibb",
-            "aaabbaaaaaaaaaa",
-            "aaabbaaaaaaaaaa"
-        ]
-
-        b12 = [
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "rbbbbbbbbbbbbbb",
-            "ubbbbbpqqqrbbbb",
-            "bbbbbbstttubbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbmnobbbbbbbbbb",
-            "aaaaaaaaaaaaaaa",
-            "aaaaaaaaaaaaaaa"
-        ]
-
-        b13 = [
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "pqqrbbbbbbbbbbb",
-            "sttubbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbh",
-            "bbbbbbbbbbbbbgk",
-            "bbbbbbbbbbbbgkj",
-            "aaaaaaaaaaaaaaa",
-            "aaaaaaaaaaaaaaa"
-        ]
-
-        b14 = [
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbb3bbbbbbbbbbb",
-            "bbb2bpqrbbbbbbb",
-            "bbb2bstubbbbbbb",
-            "bbb2bbbbbbbbbbb",
-            "bbb2bbbbbbbbbbb",
-            "bbb2bbbbbbbbbbb",
-            "bbb2bbbbvvvbbbb",
-            "bbb2bbbbyx1bbbb",
-            "bbb2bbbvwwwvbbb",
-            "ibb2bbbxxzxxbbh",
-            "libbbbbxxaxxogk",
-            "aaaaaaaaaaaaaaa",
-            "aaaaaaaaaaaaaaa"
-        ]
-
-        b15 = [
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bpqrbbbbbpqqqrb",
-            "bstubbbbbstttub",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "ibbbbmnobbbbbbb",
-            "aaaaaaaaaaaaaaa",
-            "aaaaaaaaaaaaaaa"
-        ]
-        b16 = [
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bpqrbbbbbpqqqrb",
-            "bstubbbbbstttub",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "ibbbbmnobbbbbbb",
-            "aaaaaaaaaaaaaaa",
-            "aaaaaaaaaaaaaaa"
-        ]
-        b17 = [
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bpqrbbbbbpqqqrb",
-            "bstubbbbbstttub",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "bbbbbbbbbbbbbbb",
-            "ibbbbmnobbbbbbb",
-            "aaaaaaaaaaaaaaa",
-            "aaaaaaaaaaaaaaa"
-        ]
-        self.level_list = [a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17]
-        self.level_listbg = [b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17]
-        self.level_cret = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-    def update(self):
-
-        if self.cur == 1:
-            self.pos = 0
-            self.cur = 2
-            chck = 0
-            num = 0
-            for ll in self.level_list:
+            for ll in list:
                 g1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_list[num],  self.enemies, self.items)
                 g1_1_2.gen(chck, "g")
                 g1_1_2.check_edge = chck
 
                 bg1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_listbg[num],  self.enemies, self.items)
+                bg1_1_2.gen(chck, "bg")
+                bg1_1_2.check_edge = chck
+                chck += 720
+                num +=1
+
+        if self.cur == 3:
+            self.pos = 0
+            self.cur = 4
+            chck = 0
+            num = 0
+            for ll in list:
+                g1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_list2[num],  self.enemies, self.items)
+                g1_1_2.gen(chck, "g")
+                g1_1_2.check_edge = chck
+
+                bg1_1_2 = Chunk(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self.level_listbg2[num],  self.enemies, self.items)
                 bg1_1_2.gen(chck, "bg")
                 bg1_1_2.check_edge = chck
                 chck += 720
