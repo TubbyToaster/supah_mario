@@ -179,6 +179,7 @@ class Chunk():
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/qblock_used_1.bmp",
                                         self.g_blocks, x, y, 400, "hidden")
+
                         # change type?
                     if col == "@":
                         create_enemy(self.ai_settings, self.screen, self.g_blocks,
@@ -187,9 +188,14 @@ class Chunk():
                     if col == "#":
                         create_enemy(self.ai_settings, self.screen, self.g_blocks,
                                      self.bg_blocks, mario, self.enemies, "koopa", x, y, 400, self.items)
+                    if col == "=":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/bg_tiles/pole.bmp",
+                                        self.g_blocks, x, y, 400, "winner")
                     x += 48
                 y += 48
                 x = left
+
         elif chunk_type == "bg":
             for row in self.map:
                 for col in row:
