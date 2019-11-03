@@ -1,13 +1,10 @@
-import pygame
-from pygame.sprite import Sprite
-from blocks import Blocks
 from functions import create_g_blocks
 from functions import create_bg_blocks
 from functions import create_enemy
 import mario
 
 
-class Chunk():
+class Chunk:
     def __init__(self, ai_settings, screen, g_blocks, bg_blocks, map_, enemies, items):
         super(Chunk, self).__init__()
         self.screen = screen
@@ -22,7 +19,7 @@ class Chunk():
         # self.mario = mario
         self.enemies = enemies
 
-    def gen(self, left, chunk_type):
+    def gen(self, left, chunk_type, scores):
         x = left
         y = 0
         if chunk_type == "g":
@@ -59,7 +56,7 @@ class Chunk():
                     if col == "8":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/ground_tiles/brick_4.bmp",
-                                        self.g_blocks, x, y, 400, "reg")
+                                        self.g_blocks, x, y, 400, "bricks")
                     if col == "9":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/ground_tiles/pipe_15.bmp",
@@ -174,24 +171,59 @@ class Chunk():
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/bg_tiles/pole.bmp",
                                         self.g_blocks, x, y, 400, "invs")
-                        # change type
                     if col == "?":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/interactible/qblock_used_1.bmp",
                                         self.g_blocks, x, y, 400, "hidden")
-
-                        # change type?
                     if col == "@":
                         create_enemy(self.ai_settings, self.screen, self.g_blocks,
-                                     self.bg_blocks, mario, self.enemies, "goomba", x, y, 400, self.items)
+                                     self.bg_blocks, mario, self.enemies, "goomba", x, y, 400, self.items, scores)
 
                     if col == "#":
                         create_enemy(self.ai_settings, self.screen, self.g_blocks,
-                                     self.bg_blocks, mario, self.enemies, "koopa", x, y, 400, self.items)
+                                     self.bg_blocks, mario, self.enemies, "koopa", x, y, 400, self.items, scores)
+
+                    if col == "[":
+                        create_enemy(self.ai_settings, self.screen, self.g_blocks,
+                                     self.bg_blocks, mario, self.enemies, "plant", x, y, 400, self.items, scores)
+                    if col == "]":
+                        create_enemy(self.ai_settings, self.screen, self.g_blocks,
+                                     self.bg_blocks, mario, self.enemies, "bgoomba", x, y, 400, self.items, scores)
+                    if col == "{":
+                        create_enemy(self.ai_settings, self.screen, self.g_blocks,
+                                     self.bg_blocks, mario, self.enemies, "bkoopa", x, y, 400, self.items, scores)
                     if col == "=":
                         create_g_blocks(self.ai_settings, self.screen,
                                         "assets/bg_tiles/pole.bmp",
                                         self.g_blocks, x, y, 400, "winner")
+                    if col == "~":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/interactible/qblock_4.bmp",
+                                        self.g_blocks, x, y, 400, "qcoin2")
+                    if col == "`":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/interactible/qblock_4.bmp",
+                                        self.g_blocks, x, y, 400, "pup2")
+                    if col == "+":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/brick_4.bmp",
+                                        self.g_blocks, x, y, 400, "bcoin2")
+                    if col == "-":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/brick_4.bmp",
+                                        self.g_blocks, x, y, 400, "star2")
+                    if col == "_":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/interactible/bar.bmp",
+                                        self.g_blocks, x, y, 400, "reg")
+                    if col == ")":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/brick_4.bmp",
+                                        self.g_blocks, x, y, 400, "pup3")
+                    if col == "(":
+                        create_g_blocks(self.ai_settings, self.screen,
+                                        "assets/ground_tiles/brick_4.bmp",
+                                        self.g_blocks, x, y, 400, "1up2")
                     x += 48
                 y += 48
                 x = left
