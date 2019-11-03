@@ -6,11 +6,12 @@ from timer import Timer
 
 
 class Mario(Sprite):
-    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, enemies, monitor, chunks, items):
+    def __init__(self, ai_settings, screen, g_blocks, bg_blocks, enemies, monitor, chunks, items, scores):
         super(Mario, self).__init__()
         self.screen = screen
         self.monitor = monitor
         self.ai_settings = ai_settings
+        self.scores = scores
         self.chunks = chunks
         self.items = items
         self.image = pygame.image.load('assets/mario/Rmario_stand.bmp')
@@ -25,7 +26,7 @@ class Mario(Sprite):
         self.mov_left = False
         self.image_index = 1
         self.image_cap = 10
-        self.image_ = pygame.image.load('assets/ship.bmp')
+        self.image_ = pygame.image.load('assets/special/fire_1.bmp')
         self.spd = 5
         self.vy = 0
         self.pos = 200
@@ -55,6 +56,7 @@ class Mario(Sprite):
         self.temp_go = 0
         self.walk_an = "r"
         self.star_power = False
+        self.next_level = "reg"
 
     def go_left(self):
         self.change_x -= self.fric
@@ -71,7 +73,7 @@ class Mario(Sprite):
     def fireball(self):
         self.size = 0
 
-    def update(self):
+    def update(self, music, mario):
         self.image = pygame.image.load(self.timer.imagerect())
 
         if self.state == "goright":
@@ -97,11 +99,15 @@ class Mario(Sprite):
             self.temp_go = 2
 
         if self.jumping and self.change_y == 0:
-            self.change_y = -26
+            self.change_y = -20
             self.jumping = False
+            if self.state == "super" or self.state == "fire":
+                pygame.mixer.Channel(1).play(music.big_j)
+            else:
+                pygame.mixer.Channel(1).play(music.small_j)
         if self.jumping_press and self.jump_scaler == 0:
             if self.jump_scaler < 20:
-                self.jump_scaler += 1
+                self.jump_scaler += 2
             else:
                 self.jumping_press = False
             self.change_y -= self.jump_scaler
@@ -122,30 +128,30 @@ class Mario(Sprite):
         if self.change_x == 0 and self.change_y == 0 and not self.flag and not self.died and self.state != "dead":
             if self.dir_face == "right":
                 self.frames_ = ['assets/mario/Rmario_stand.bmp']
-                if self.star_power == True:
+                if self.star_power is True:
                     self.frames_ = ['assets/mario/Rmario_standi.bmp', 'assets/mario/Rmario_stand.bmp']
             if self.dir_face == "left":
                 self.frames_ = ['assets/mario/Lmario_stand.bmp']
-                if self.star_power == True:
+                if self.star_power is True:
                     self.frames_ = ['assets/mario/Lmario_standi.bmp', 'assets/mario/Lmario_stand.bmp']
             if self.state == "super":
                 if self.dir_face == "right":
                     self.frames_ = ['assets/mario/Rsmario_stand.bmp']
-                    if self.star_power == True:
+                    if self.star_power is True:
                         self.frames_ = ['assets/mario/Rsmario_standi.bmp', 'assets/mario/Rsmario_stand.bmp']
                 if self.dir_face == "left":
                     self.frames_ = ['assets/mario/Lsmario_stand.bmp']
-                    if self.star_power == True:
+                    if self.star_power is True:
                         self.frames_ = ['assets/mario/Lsmario_standi.bmp', 'assets/mario/Lsmario_stand.bmp']
             if self.state == "fire":
                 if self.dir_face == "right":
                     self.frames_ = ['assets/mario/Rfmario_stand.bmp']
-                    if self.star_power == True:
-                        self.frames_ = ['assets/mario/Rfmario_standi.bmp', 'assets/mario/Rfmario_stand.bmp']
+                    if self.star_power is True:
+                        self.frames_ = ['assets/mario/Rsmario_standi.bmp', 'assets/mario/Rfmario_stand.bmp']
                 if self.dir_face == "left":
                     self.frames_ = ['assets/mario/Lfmario_stand.bmp']
-                    if self.star_power == True:
-                        self.frames_ = ['assets/mario/Lfmario_standi.bmp', 'assets/mario/Lfmario_stand.bmp']
+                    if self.star_power is True:
+                        self.frames_ = ['assets/mario/Lsmario_standi.bmp', 'assets/mario/Lfmario_stand.bmp']
             self.timer.frames = self.frames_
             self.timer.reset()
 
@@ -155,7 +161,7 @@ class Mario(Sprite):
             self.frames_ = ['assets/mario/Lmario_walk_1.bmp', 'assets/mario/Lmario_walk_2.bmp',
                             'assets/mario/Lmario_walk_3.bmp', 'assets/mario/Lmario_walk_1.bmp',
                             'assets/mario/Lmario_walk_2.bmp', 'assets/mario/Lmario_walk_3.bmp']
-            if self.star_power == True:
+            if self.star_power is True:
                 self.frames_ = ['assets/mario/Lmario_walk_1.bmp', 'assets/mario/Lmario_walk_2i.bmp',
                                 'assets/mario/Lmario_walk_3.bmp', 'assets/mario/Lmario_walk_1i.bmp',
                                 'assets/mario/Lmario_walk_2.bmp', 'assets/mario/Lmario_walk_3i.bmp']
@@ -163,7 +169,7 @@ class Mario(Sprite):
                 self.frames_ = ['assets/mario/Lsmario_walk_1.bmp', 'assets/mario/Lsmario_walk_2.bmp',
                                 'assets/mario/Lsmario_walk_3.bmp', 'assets/mario/Lsmario_walk_1.bmp',
                                 'assets/mario/Lsmario_walk_2.bmp', 'assets/mario/Lsmario_walk_3.bmp']
-                if self.star_power == True:
+                if self.star_power is True:
                     self.frames_ = ['assets/mario/Lsmario_walk_1.bmp', 'assets/mario/Lsmario_walk_2i.bmp',
                                     'assets/mario/Lsmario_walk_3.bmp', 'assets/mario/Lsmario_walk_1i.bmp',
                                     'assets/mario/Lsmario_walk_2.bmp', 'assets/mario/Lsmario_walk_3i.bmp']
@@ -171,10 +177,10 @@ class Mario(Sprite):
                 self.frames_ = ['assets/mario/Lfmario_walk_1.bmp', 'assets/mario/Lfmario_walk_2.bmp',
                                 'assets/mario/Lfmario_walk_3.bmp', 'assets/mario/Lfmario_walk_1.bmp',
                                 'assets/mario/Lfmario_walk_2.bmp', 'assets/mario/Lfmario_walk_3.bmp']
-                if self.star_power == True:
-                    self.frames_ = ['assets/mario/Lfmario_walk_1.bmp', 'assets/mario/Lfmario_walk_2i.bmp',
-                                    'assets/mario/Lfmario_walk_3.bmp', 'assets/mario/Lfmario_walk_1i.bmp',
-                                    'assets/mario/Lfmario_walk_2.bmp', 'assets/mario/Lfmario_walk_3i.bmp']
+                if self.star_power is True:
+                    self.frames_ = ['assets/mario/Lfmario_walk_1.bmp', 'assets/mario/Lsmario_walk_2i.bmp',
+                                    'assets/mario/Lfmario_walk_3.bmp', 'assets/mario/Lsmario_walk_1i.bmp',
+                                    'assets/mario/Lfmario_walk_2.bmp', 'assets/mario/Lsmario_walk_3i.bmp']
 
             self.timer.frames = self.frames_
             # self.timer.reset()
@@ -185,7 +191,7 @@ class Mario(Sprite):
             self.frames_ = ['assets/mario/Rmario_walk_1.bmp', 'assets/mario/Rmario_walk_2.bmp',
                             'assets/mario/Rmario_walk_3.bmp', 'assets/mario/Rmario_walk_1.bmp',
                             'assets/mario/Rmario_walk_2.bmp', 'assets/mario/Rmario_walk_3.bmp']
-            if self.star_power == True:
+            if self.star_power is True:
                 self.frames_ = ['assets/mario/Rmario_walk_1.bmp', 'assets/mario/Rmario_walk_2i.bmp',
                                 'assets/mario/Rmario_walk_3.bmp', 'assets/mario/Rmario_walk_1i.bmp',
                                 'assets/mario/Rmario_walk_2.bmp', 'assets/mario/Rmario_walk_3i.bmp']
@@ -193,7 +199,7 @@ class Mario(Sprite):
                 self.frames_ = ['assets/mario/Rsmario_walk_1.bmp', 'assets/mario/Rsmario_walk_2.bmp',
                                 'assets/mario/Rsmario_walk_3.bmp', 'assets/mario/Rsmario_walk_1.bmp',
                                 'assets/mario/Rsmario_walk_2.bmp', 'assets/mario/Rsmario_walk_3.bmp']
-                if self.star_power == True:
+                if self.star_power is True:
                     self.frames_ = ['assets/mario/Rsmario_walk_1.bmp', 'assets/mario/Rsmario_walk_2i.bmp',
                                     'assets/mario/Rsmario_walk_3.bmp', 'assets/mario/Rsmario_walk_1i.bmp',
                                     'assets/mario/Rsmario_walk_2.bmp', 'assets/mario/Rsmario_walk_3i.bmp']
@@ -201,39 +207,39 @@ class Mario(Sprite):
                 self.frames_ = ['assets/mario/Rfmario_walk_1.bmp', 'assets/mario/Rfmario_walk_2.bmp',
                                 'assets/mario/Rfmario_walk_3.bmp', 'assets/mario/Rfmario_walk_1.bmp',
                                 'assets/mario/Rfmario_walk_2.bmp', 'assets/mario/Rfmario_walk_3.bmp']
-                if self.star_power == True:
-                    self.frames_ = ['assets/mario/Rfmario_walk_1.bmp', 'assets/mario/Rfmario_walk_2i.bmp',
-                                    'assets/mario/Rfmario_walk_3.bmp', 'assets/mario/Rfmario_walk_1i.bmp',
-                                    'assets/mario/Rfmario_walk_2.bmp', 'assets/mario/Rfmario_walk_3i.bmp']
+                if self.star_power is True:
+                    self.frames_ = ['assets/mario/Rfmario_walk_1.bmp', 'assets/mario/Rsmario_walk_2i.bmp',
+                                    'assets/mario/Rfmario_walk_3.bmp', 'assets/mario/Rsmario_walk_1i.bmp',
+                                    'assets/mario/Rfmario_walk_2.bmp', 'assets/mario/Rsmario_walk_3i.bmp']
             self.timer.frames = self.frames_
             # self.timer.reset()
 
         if self.mov_right and self.fric < 0 and self.state != "dead" and not self.flag:
             self.frames_ = ['assets/mario/mario_turn2R.bmp', 'assets/mario/mario_turn2R.bmp']
-            if self.star_power == True:
+            if self.star_power is True:
                 self.frames_ = ['assets/mario/mario_turn2R.bmp', 'assets/mario/mario_turn2Ri.bmp']
             if self.state == "super":
                 self.frames_ = ['assets/mario/smario_turn2R.bmp', 'assets/mario/smario_turn2R.bmp']
-                if self.star_power == True:
+                if self.star_power is True:
                     self.frames_ = ['assets/mario/smario_turn2R.bmp', 'assets/mario/smario_turn2Ri.bmp']
             if self.state == "fire":
                 self.frames_ = ['assets/mario/fmario_turn2R.bmp', 'assets/mario/fmario_turn2R.bmp']
-                if self.star_power == True:
+                if self.star_power is True:
                     self.frames_ = ['assets/mario/fmario_turn2R.bmp', 'assets/mario/fmario_turn2Ri.bmp']
 
             self.timer.frames = self.frames_
             self.timer.reset()
         if self.mov_left and self.fric > 0 and self.state != "dead" and not self.flag:
             self.frames_ = ['assets/mario/mario_turn2L.bmp', 'assets/mario/mario_turn2L.bmp']
-            if self.star_power == True:
+            if self.star_power is True:
                 self.frames_ = ['assets/mario/mario_turn2L.bmp', 'assets/mario/mario_turn2Li.bmp']
             if self.state == "super":
                 self.frames_ = ['assets/mario/smario_turn2L.bmp', 'assets/mario/smario_turn2L.bmp']
-                if self.star_power == True:
+                if self.star_power is True:
                     self.frames_ = ['assets/mario/smario_turn2L.bmp', 'assets/mario/smario_turn2Li.bmp']
             if self.state == "fire":
                 self.frames_ = ['assets/mario/fmario_turn2L.bmp', 'assets/mario/fmario_turn2L.bmp']
-                if self.star_power == True:
+                if self.star_power is True:
                     self.frames_ = ['assets/mario/fmario_turn2L.bmp', 'assets/mario/fmario_turn2Li.bmp']
             self.timer.frames = self.frames_
             self.timer.reset()
@@ -303,6 +309,7 @@ class Mario(Sprite):
                     self.state = "next!"
 
                 if block.type_ == "invs":
+                    self.next_level = self.state
                     if self.state == "fire":
                         self.state = "flagf"
                     if self.state == "super":
@@ -344,31 +351,30 @@ class Mario(Sprite):
                 elif self.change_y < 0:
                     self.rect.top = block.rect.bottom
                     self.jumping_press = False
-                    self.cur_item(block)
+                    self.cur_item(block, music, mario)
                     if block.type_ == "bricks" and (self.state == "super" or self.state == "fire"):
                         block.dead = 1
                 self.change_y = 0
 
         if self.invinc > 0:
             self.invinc -= 1
-        if self.invinc == 0 and self.star_power == True:
+        if self.invinc == 0 and self.star_power is True:
             self.star_power = False
 
         for enemy in self.enemies:
-            if self.rect.right + 400 > enemy.rect.left:
+            if self.rect.right + 720 > enemy.rect.left:
                 enemy.state = "active"
-            if self.rect.colliderect(enemy.rect) and self.star_power == True:
+            if self.rect.colliderect(enemy.rect) and self.star_power is True:
                 enemy.kill()
 
-            if self.rect.colliderect(enemy.rect) and self.death == False and self.invinc == 0:
+            if self.rect.colliderect(enemy.rect) and self.death is False and self.invinc == 0:
                 if self.change_y > 0:
                     self.rect.bottom = enemy.rect.top
                     self.change_y = -5
                     self.jumping = True
                     self.change_y = 0
                     if enemy.state != "dead":
-                        enemy.dead_enemy()
-                    # self.enemies.remove(enemy)
+                        enemy.dead_enemy(music)
                 elif enemy.type == "shell":
                     if self.dir_face == "right":
                         create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self,
@@ -380,6 +386,17 @@ class Mario(Sprite):
                                     self.items, "shell_mov", enemy.rect.left, enemy.rect.bottom,
                                     enemy.rect.center, True, False)
                         enemy.kill()
+                elif enemy.type == "bshell":
+                    if self.dir_face == "right":
+                        create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self,
+                                    self.items, "bshell_mov", enemy.rect.right, enemy.rect.bottom,
+                                    enemy.rect.center, False, True)
+                        enemy.kill()
+                    elif self.dir_face == "left":
+                        create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self,
+                                    self.items, "bshell_mov", enemy.rect.left, enemy.rect.bottom,
+                                    enemy.rect.center, True, False)
+                        enemy.kill()
 
                 elif enemy.type != "shell":
                     if self.state == "reg":
@@ -388,29 +405,44 @@ class Mario(Sprite):
                         self.invinc = 60
                         self.grow_up('assets/mario/Rsmario_stand.bmp')
                         self.state = "super"
+                        pygame.mixer.Channel(5).play(music.pdown)
                     else:
                         self.invinc = 60
                         self.grow_up('assets/mario/Rmario_stand.bmp')
                         self.state = "reg"
+                        pygame.mixer.Channel(5).play(music.pdown)
                 self.change_y = 0
 
         for item in self.items:
-            if self.rect.colliderect(item.rect) and self.death == False and item.type != "fireball":
+            if self.rect.colliderect(item.rect) and self.death is False and item.type != "fireball":
                 if item.type == "mushroom":
                     self.grow_up('assets/mario/Rsmario_stand.bmp')
                     self.state = "super"
+                    pygame.mixer.Channel(2).play(music.pup)
+                if item.type == "coin":
+                    self.ai_settings.coins += 1
+                    self.ai_settings.high_score -= 800
+                    self.scores.prep_coins()
+                    pygame.mixer.Channel(2).play(music.coin)
                 if item.type == "star":
                     self.invinc = 300
                     self.star_power = True
+                    pygame.mixer.Channel(2).play(music.pup)
                 if item.type == "1upshroom":
                     self.ai_settings.mario_lives += 1
+                    self.scores.prep_lives()
+                    pygame.mixer.Channel(2).play(music.one_up)
                 if self.state == "super" and item.type == "fireflower":
                     self.state = "fire"
+                    pygame.mixer.Channel(2).play(music.pup)
                 if self.state != "super" and item.type == "fireflower":
                     self.grow_up('assets/mario/Rsmario_stand.bmp')
+                    pygame.mixer.Channel(2).play(music.pup)
                     self.state = "fire"
                 if item.type != "shell_mov":
                     self.items.remove(item)
+                self.ai_settings.high_score += 1000
+                self.scores.prep_score()
 
         if self.rect.y >= 720 - self.rect.height and self.change_y >= 0 and not self.died or self.death_blow:
             self.change_y = -26
@@ -425,7 +457,7 @@ class Mario(Sprite):
             self.change_x = 0
             self.timer.reset()
 
-    def hurt(self, str_):
+    def hurt(self):
         temp1 = self.screen_rect
         temp2 = self.rect.centerx
         temp3 = self.rect.bottom
@@ -469,9 +501,7 @@ class Mario(Sprite):
                 self.state = "goright"
 
     def blitme(self):
-        if self.invinc == 10 or self.invinc == 20 or self.invinc == 30 or self.invinc == 40:
-            o = 1
-        else:
+        if not(self.invinc == 10 or self.invinc == 20 or self.invinc == 30 or self.invinc == 40):
             self.screen.blit(self.image, self.rect)
 
     def center_mario(self):
@@ -486,49 +516,48 @@ class Mario(Sprite):
         if self.image_index == 0:
             self.image_index = self.image_
 
-    def cur_item(self, block):
-
-        if block.type_ == "pup" and self.state == "reg":
+    def cur_item(self, block, music, mario):
+        if (block.type_ == "pup" or block.type_ == "pup2" or block.type_ == "pup3") \
+                and self.state == "reg":
             if self.dir_face == "right":
-                l = False
-                r = True
+                left = False
+                right = True
             else:
-                l = True
-                r = False
+                left = True
+                right = False
             create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self, self.items,
                         "mushroom", float(block.rect.x) + 25,
                         block.rect.bottom - 60,
-                        float(block.rect.x), l, r)
-        if block.type_ == "pup" and (self.state == "super" or self.state == "fire"):
+                        float(block.rect.x), left, right)
+        if (block.type_ == "pup" or block.type_ == "pup2" or block.type_ == "pup3") \
+                and (self.state == "super" or self.state == "fire"):
             create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self, self.items,
                         "fireflower", float(block.rect.x) + 25,
                         block.rect.bottom - 30,
                         float(block.rect.x), False, False)
 
-        if block.type_ == "qcoin":
+        if block.type_ == "qcoin" or block.type_ == "qcoin2":
             create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self, self.items,
                         "coin", float(block.rect.x) + 25,
                         block.rect.bottom - 30,
                         float(block.rect.x), False, False)
 
-        if block.type_ == "hidden":
+        if block.type_ == "hidden" or block.type_ == "1up2":
             create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self, self.items,
                         "1upshroom", float(block.rect.x) + 25,
                         block.rect.bottom - 30,
                         float(block.rect.x), False, True)
 
-        if block.type_ == "bcoin":
+        if block.type_ == "bcoin" or block.type_ == "bcoin2":
             create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self, self.items,
                         "coin", float(block.rect.x) + 25,
                         block.rect.bottom - 30,
                         float(block.rect.x), False, False)
 
-        if block.type_ == "star":
+        if block.type_ == "star" or block.type_ == "star2":
             create_item(self.ai_settings, self.screen, self.g_blocks, self.bg_blocks, self, self.items,
                         "star", float(block.rect.x) + 25,
                         block.rect.bottom - 60,
                         float(block.rect.x), False, True)
 
-        block.blipup()
-
-
+        block.blipup(music, mario)
